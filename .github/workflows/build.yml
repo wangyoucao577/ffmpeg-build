@@ -24,7 +24,7 @@ jobs:
         with:
           msystem: MINGW64
           update: true
-          install: git make pkgconf diffutils $MINGW_PACKAGE_PREFIX-{nasm,gcc,SDL2}
+          install: git make pkgconf diffutils mingw-w64-x86_64-{nasm,gcc,SDL2}
 
       - name: Build
         run: |
