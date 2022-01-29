@@ -31,6 +31,12 @@ jobs:
           cd ffmpeg
           mkdir -p build
           ./configure --prefix=$(pwd)/build --enable-shared
-          mkdir -rj
-          mkdir install
+          make -rj
+          make install
           tree build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ffmpeg-build
+          path: ffmpeg/build/
