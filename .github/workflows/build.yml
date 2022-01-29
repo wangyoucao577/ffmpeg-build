@@ -33,7 +33,6 @@ jobs:
           install: >-
             git make pkgconf diffutils zip tree 
             mingw-w64-${{matrix.env}}-nasm mingw-w64-${{matrix.env}}-gcc mingw-w64-${{matrix.env}}-SDL2
-            mingw-w64-${{matrix.env}}-openssl
             mingw-w64-${{matrix.env}}-fdk-aac mingw-w64-${{matrix.env}}-opus 
             mingw-w64-${{matrix.env}}-x264 mingw-w64-${{matrix.env}}-x265 
             mingw-w64-${{matrix.env}}-svt-av1 mingw-w64-${{matrix.env}}-aom 
