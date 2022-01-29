@@ -1,0 +1,36 @@
+name: Build
+on: 
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: git make pkgconf diffutils $MINGW_PACKAGE_PREFIX-{nasm,gcc,SDL2}
+
+      - name: Build
+        run: |
+          cd ffmpeg
+          mkdir -p build
+          ./configure --prefix=$(pwd)/build --enable-shared
+          mkdir -rj
+          mkdir install
+          tree build
