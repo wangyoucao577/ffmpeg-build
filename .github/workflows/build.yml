@@ -45,7 +45,14 @@ jobs:
           ./configure --prefix=$(pwd)/build --enable-shared --enable-sdl2 --enable-gpl --enable-nonfree --enable-libx264 --enable-libx265 --enable-libaom --enable-libsvtav1 --enable-libfdk-aac --enable-libopus --enable-libsrt
           make -rj
           make install
+
+      # also need to package DLL dependencies
+      - name: Package
+        run: |
+          cd ffmpeg
           cd build/bin && ldd ffmpeg | grep ${{matrix.sys}} | awk '{system("cp "$3" ./")}' && cd ../..
+          cd build/bin && ldd ffmpeg | grep libcrypto
+          cd build/bin && ldd ffmpeg | grep libcrypto | awk '{system("cp "$3" ./")}' && cd ../..
           tree build
 
       - name: Upload artifacts
