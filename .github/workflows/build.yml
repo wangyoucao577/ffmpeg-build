@@ -14,11 +14,11 @@ jobs:
   build:
     runs-on: windows-latest
     strategy:
-    matrix:
-      include:
-        - { sys: mingw64, env: x86_64 }
-        # - { sys: ucrt64,  env: ucrt-x86_64 }  # Experimental!
-        # - { sys: clang64, env: clang-x86_64 } # Experimental!
+      matrix:
+        include:
+          - { sys: mingw64, env: x86_64 }
+          # - { sys: ucrt64,  env: ucrt-x86_64 }  # Experimental!
+          # - { sys: clang64, env: clang-x86_64 } # Experimental!
     defaults:
       run:
         shell: msys2 {0}
