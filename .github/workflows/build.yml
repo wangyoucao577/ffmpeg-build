@@ -30,7 +30,7 @@ jobs:
         run: |
           cd ffmpeg
           mkdir -p build
-          ./configure --prefix=$(pwd)/build --enable-shared --enable-sdl2 --enable-gpl --enable-libx264 --enable-libx265 
+          ./configure --prefix=$(pwd)/build --enable-shared --enable-sdl2 
           make -rj
           make install
           tree build
