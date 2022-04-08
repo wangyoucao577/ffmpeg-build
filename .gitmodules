@@ -1,3 +1,6 @@
 [submodule "ffmpeg"]
 	path = ffmpeg
 	url = https://github.com/wangyoucao577/FFmpeg.git
+[submodule "nv-codec-headers"]
+	path = nv-codec-headers
+	url = https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
