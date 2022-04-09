@@ -2,15 +2,15 @@
 Build scripts and artifacts for ffmpeg. 
 
 ## Version
-Branch for Nvidia CUDA NVENC/NVDEC hardware acceleration.     
+Branch for **using ffmpeg with Nvidia CUDA NVENC/NVDEC hardware acceleration**.     
 Including versions:     
 - `ffmpeg n4.3.3`    
 - `nv-codec-headers n11.0.10.1`    
 
 ## Prerequisites    
-- A ​supported GPU
+- A ​supported GPU    
 - Supported drivers for your operating system
-​- The [NVIDIA Codec SDK](https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html) 
+- The [NVIDIA Codec SDK](https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html) 
 
 ## Build on Linux   
 
