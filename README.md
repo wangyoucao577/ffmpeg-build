@@ -10,7 +10,8 @@ Including versions:
 ## Prerequisites    
 - A ​supported GPU    
 - Supported drivers for your operating system
-- The [NVIDIA Codec SDK](https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html) 
+- The [NVIDIA Codec SDK](https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html)    
+  - will be installed in path `/usr/local/cuda` by default on Linux
 
 ## Build on Linux   
 
