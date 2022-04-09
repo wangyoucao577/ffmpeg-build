@@ -43,7 +43,7 @@ jobs:
         run: |
           cd ffmpeg
           mkdir -p build
-          ./configure --prefix=$(pwd)/build --enable-shared --enable-sdl2 --enable-gpl --enable-nonfree --enable-libx264 --enable-libx265 --enable-libaom --enable-libsvtav1 --enable-libfdk-aac --enable-libopus --enable-libsrt
+          ./configure --prefix=$(pwd)/build --enable-shared --enable-sdl2 --enable-gpl --enable-nonfree --enable-libx264 --enable-libx265 --enable-libaom --enable-libfdk-aac --enable-libopus --enable-libsrt
           make -rj
           make install
 
