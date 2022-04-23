@@ -1,6 +1,6 @@
 
 
-FROM debian:bullseye-slim
+FROM debian:buster-slim
 
 # avoid interactive during apt install
 ARG DEBIAN_FRONTEND=noninteractive

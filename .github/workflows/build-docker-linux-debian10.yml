@@ -1,4 +1,4 @@
-name: Build Docker - linux-build
+name: Build Docker - linux-debian10
 
 on: 
   push:
@@ -10,7 +10,7 @@ on:
     - 'buildtools/docker/**'
 
 env:
-  IMAGE_NAME: linux-build
+  IMAGE_NAME: linux-debian10
   DOCKERFILE_PATH: buildtools/docker/
   GITHUB_CONTAINER_REGISTRY: ghcr.io
 
