@@ -24,7 +24,7 @@ jobs:
         run: |
           cd ffmpeg
           mkdir -p build
-          ./configure --prefix=$(pwd)/build --enable-static --disable-shared --enable-sdl2 --enable-gpl --enable-nonfree 
+          ./configure --prefix=$(pwd)/build --enable-static --disable-shared --enable-gpl --enable-nonfree 
           make -rj
           make install
 
