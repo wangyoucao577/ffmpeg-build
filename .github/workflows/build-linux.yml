@@ -19,7 +19,7 @@ jobs:
   build-linux-build-image:
     runs-on: ubuntu-latest
     outputs:
-      linux-build-image: ${{ steps.set-image-tag.outputs.image }}
+      tag: ${{ steps.set-image-tag.outputs.image-tag }}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -27,7 +27,7 @@ jobs:
       name: Set IMAGE_TAG env # env IMAGE_TAG=BranchName-CommitID-Timestamp
       run: |
         echo IMAGE_TAG=$(basename ${GITHUB_REF})-$(echo ${GITHUB_SHA} | cut -c 1-7)-$(date -u +"%Y%m%d") >> ${GITHUB_ENV}
-        echo "::set-output name=image::${GITHUB_CONTAINER_REGISTRY}/${GITHUB_REPOSITORY}/${env.IMAGE_NAME}:${IMAGE_TAG}"
+        echo "::set-output name=image-tag::${IMAGE_TAG}"
     - name: Environment Printer
       uses: managedkaos/print-env@v1.0
 
@@ -48,7 +48,7 @@ jobs:
     needs:
       build-linux-build-image
     container:
-      image: ${{needs.build-linux-build-image.outputs.linux-build-image}}
+      image: ${{ env.GITHUB_CONTAINER_REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{needs.build-linux-build-image.outputs.tag}}
     steps:
       - uses: actions/checkout@v3
         with:
