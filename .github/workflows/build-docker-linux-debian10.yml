@@ -35,6 +35,6 @@ jobs:
         registry: ${{ env.GITHUB_CONTAINER_REGISTRY }}
         snapshot: false
         workdir: ${{ env.DOCKERFILE_PATH }}
-        dockerfile: linux-build.dockerfile
+        dockerfile: ${{ env.IMAGE_NAME }}.dockerfile
         tags: "latest,${{ env.IMAGE_TAG }}"
         buildargs: "IMAGE_TAG=${{ env.IMAGE_TAG }}"
