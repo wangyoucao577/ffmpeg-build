@@ -20,8 +20,14 @@ jobs:
           fetch-depth: '0'
           submodules: 'true'
 
+      - name: Build dependencies
+        run: |
+          ./buildtools/build-svtav1.sh
+
       - name: Build
         run: |
+          export LD_LIBRARY_PATH="$(pwd)/build/lib"
+          export PKG_CONFIG_PATH="$(pwd)/build/lib/pkgconfig"
           cd ffmpeg
           mkdir -p build
           ./configure --prefix=$(pwd)/build --enable-static --disable-shared --enable-gpl --enable-nonfree 
