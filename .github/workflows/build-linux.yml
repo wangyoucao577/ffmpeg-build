@@ -48,7 +48,7 @@ jobs:
     needs:
       build-linux-build-image
     container:
-      image: ${{ env.GITHUB_CONTAINER_REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{needs.build-linux-build-image.outputs.tag}}
+      image: ${{ needs.build-linux-build-image.outputs.tag }}
     steps:
       - uses: actions/checkout@v3
         with:
