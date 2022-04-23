@@ -32,7 +32,7 @@ jobs:
       uses: managedkaos/print-env@v1.0
 
     - name: Build & Publish to Github Container Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v4
       with:
         name: ${{ github.repository }}/${{ env.IMAGE_NAME }}
         username: ${{ github.actor }}
@@ -40,6 +40,7 @@ jobs:
         registry: ${{ env.GITHUB_CONTAINER_REGISTRY }}
         snapshot: false
         workdir: ${{ env.DOCKERFILE_PATH }}
+        dockerfile: linux-build.dockerfile
         tags: "latest,${{ env.IMAGE_TAG }}"
         buildargs: "IMAGE_TAG=${{ env.IMAGE_TAG }}"
 
