@@ -26,6 +26,7 @@ jobs:
       - name: Build dependencies
         run: |
           ./buildtools/build-svtav1.sh
+          tree build
 
       - name: Build
         run: |
@@ -36,9 +37,13 @@ jobs:
           ./configure --prefix=$(pwd)/build --enable-static --disable-shared --enable-gpl --enable-nonfree --enable-libsvtav1 
           make -rj
           make install
+          tree build
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
-          name: ffmpeg-build
-          path: ffmpeg/build/
+          name: ffmpeg-bin
+          path: ffmpeg/build/bin/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ffmpeg-deps-bin
+          path: build/bin/

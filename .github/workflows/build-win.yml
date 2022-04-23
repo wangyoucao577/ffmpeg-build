@@ -44,6 +44,7 @@ jobs:
       - name: Build dependencies
         run: |
           ./buildtools/build-svtav1.sh
+          tree build
 
       - name: Build
         run: |
@@ -56,6 +57,7 @@ jobs:
           ./configure --prefix=$(pwd)/build --enable-shared --enable-gpl --enable-nonfree --enable-libsvtav1 --enable-sdl2 --enable-libx264 --enable-libx265 --enable-libaom --enable-libfdk-aac --enable-libopus --enable-libsrt
           make -rj
           make install
+          tree build
 
       # also need to package DLL dependencies
       #  by default the compliation depends on system installed openssl(libcrypto), so we need to copy it manually
@@ -67,8 +69,11 @@ jobs:
           cd build/bin && ldd ffmpeg | grep libcrypto | awk '{system("cp "$3" ./")}' && cd ../..
           tree build
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
-          name: ffmpeg-build
-          path: ffmpeg/build/
+          name: ffmpeg-bin
+          path: ffmpeg/build/bin/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ffmpeg-deps-bin
+          path: build/bin/
