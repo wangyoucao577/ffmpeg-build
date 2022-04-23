@@ -47,11 +47,13 @@ jobs:
 
       - name: Build
         run: |
+          echo "LD_LIBRARY_PATH: ${LD_LIBRARY_PATH}"
+          echo "PKG_CONFIG_PATH: ${PKG_CONFIG_PATH}"
           export LD_LIBRARY_PATH="$(pwd)/build/lib"
           export PKG_CONFIG_PATH="$(pwd)/build/lib/pkgconfig"
           cd ffmpeg
           mkdir -p build
-          ./configure --prefix=$(pwd)/build --enable-shared --enable-sdl2 --enable-gpl --enable-nonfree --enable-libx264 --enable-libx265 --enable-libaom --enable-libsvtav1 --enable-libfdk-aac --enable-libopus --enable-libsrt
+          ./configure --prefix=$(pwd)/build --enable-shared --enable-gpl --enable-nonfree --enable-libsvtav1 --enable-sdl2 --enable-libx264 --enable-libx265 --enable-libaom --enable-libfdk-aac --enable-libopus --enable-libsrt
           make -rj
           make install
 

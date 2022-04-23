@@ -30,7 +30,7 @@ jobs:
           export PKG_CONFIG_PATH="$(pwd)/build/lib/pkgconfig"
           cd ffmpeg
           mkdir -p build
-          ./configure --prefix=$(pwd)/build --enable-static --disable-shared --enable-gpl --enable-nonfree 
+          ./configure --prefix=$(pwd)/build --enable-static --disable-shared --enable-gpl --enable-nonfree --enable-libsvtav1
           make -rj
           make install
 
