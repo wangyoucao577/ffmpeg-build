@@ -1,0 +1,40 @@
+name: Build Docker - linux-build
+
+on: 
+  push:
+    branches:
+    - '**'
+    tags:
+    - '**'
+    paths:
+    - 'docker/**'
+
+env:
+  IMAGE_NAME: linux-build
+  DOCKERFILE_PATH: docker/
+  GITHUB_CONTAINER_REGISTRY: ghcr.io
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set IMAGE_TAG env # env IMAGE_TAG=BranchName-CommitID-Timestamp
+      run: |
+        echo IMAGE_TAG=$(basename ${GITHUB_REF})-$(echo ${GITHUB_SHA} | cut -c 1-7)-$(date -u +"%Y%m%d") >> ${GITHUB_ENV}
+    - name: Environment Printer
+      uses: managedkaos/print-env@v1.0
+
+    - name: Build & Publish to Github Container Registry
+      uses: elgohr/Publish-Docker-Github-Action@v4
+      with:
+        name: ${{ github.repository }}/${{ env.IMAGE_NAME }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ${{ env.GITHUB_CONTAINER_REGISTRY }}
+        snapshot: false
+        workdir: ${{ env.DOCKERFILE_PATH }}
+        dockerfile: linux-build.dockerfile
+        tags: "latest,${{ env.IMAGE_TAG }}"
+        buildargs: "IMAGE_TAG=${{ env.IMAGE_TAG }}"

@@ -9,47 +9,11 @@ on:
     branches:
       - main
 
-env:
-  # env for linux-build image
-  IMAGE_NAME: linux-build
-  DOCKERFILE_PATH: docker/
-  GITHUB_CONTAINER_REGISTRY: ghcr.io
-
 jobs:
-  build-linux-build-image:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.set-image-tag.outputs.image-tag }}
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - id: set-image-tag
-      name: Set IMAGE_TAG env # env IMAGE_TAG=BranchName-CommitID-Timestamp
-      run: |
-        echo IMAGE_TAG=$(basename ${GITHUB_REF})-$(echo ${GITHUB_SHA} | cut -c 1-7)-$(date -u +"%Y%m%d") >> ${GITHUB_ENV}
-        echo "::set-output name=image-tag::${IMAGE_TAG}"
-    - name: Environment Printer
-      uses: managedkaos/print-env@v1.0
-
-    - name: Build & Publish to Github Container Registry
-      uses: elgohr/Publish-Docker-Github-Action@v4
-      with:
-        name: ${{ github.repository }}/${{ env.IMAGE_NAME }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-        registry: ${{ env.GITHUB_CONTAINER_REGISTRY }}
-        snapshot: false
-        workdir: ${{ env.DOCKERFILE_PATH }}
-        dockerfile: linux-build.dockerfile
-        tags: "latest,${{ env.IMAGE_TAG }}"
-        buildargs: "IMAGE_TAG=${{ env.IMAGE_TAG }}"
-
-  build-ffmpeg:
-    runs-on: ubuntu-latest
-    needs:
-      build-linux-build-image
     container:
-      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-build:latest
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-build
     steps:
       - uses: actions/checkout@v3
         with:
@@ -60,7 +24,7 @@ jobs:
         run: |
           cd ffmpeg
           mkdir -p build
-          ./configure --prefix=$(pwd)/build --enable-shared --enable-sdl2 --enable-gpl --enable-nonfree --enable-libx264 --enable-libx265 --enable-libaom --enable-libsvtav1 --enable-libfdk-aac --enable-libopus --enable-libsrt
+          ./configure --prefix=$(pwd)/build --enable-static --disable-shared --enable-sdl2 --enable-gpl --enable-nonfree 
           make -rj
           make install
 
