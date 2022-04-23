@@ -4,3 +4,6 @@
 [submodule "nv-codec-headers"]
 	path = nv-codec-headers
 	url = https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+[submodule "SVT-AV1"]
+	path = SVT-AV1
+	url = https://github.com/AOMediaCodec/SVT-AV1.git
