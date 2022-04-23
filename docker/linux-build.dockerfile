@@ -8,6 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Install basic packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
   build-essential pkg-config \
+  yasm \
   vim curl wget git git-lfs jq zip unzip tree \
   lsb-release software-properties-common gnupg2 autoconf \
   locales-all ca-certificates \
