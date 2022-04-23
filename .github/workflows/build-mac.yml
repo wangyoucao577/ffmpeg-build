@@ -1,0 +1,33 @@
+name: Build - mac
+on: 
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+
+      - name: Build
+        run: |
+          cd ffmpeg
+          mkdir -p build
+          ./configure --prefix=$(pwd)/build --enable-static --disable-shared --enable-gpl --enable-nonfree 
+          make -rj
+          make install
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ffmpeg-build
+          path: ffmpeg/build/
