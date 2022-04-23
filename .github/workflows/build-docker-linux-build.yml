@@ -7,11 +7,11 @@ on:
     tags:
     - '**'
     paths:
-    - 'docker/**'
+    - 'buildtools/docker/**'
 
 env:
   IMAGE_NAME: linux-build
-  DOCKERFILE_PATH: docker/
+  DOCKERFILE_PATH: buildtools/docker/
   GITHUB_CONTAINER_REGISTRY: ghcr.io
 
 jobs:
