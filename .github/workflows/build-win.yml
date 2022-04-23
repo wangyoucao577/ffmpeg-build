@@ -48,15 +48,10 @@ jobs:
 
       - name: Build
         run: |
-          echo "LD_LIBRARY_PATH: ${LD_LIBRARY_PATH}"
-          echo "PKG_CONFIG_PATH: ${PKG_CONFIG_PATH}"
-          export LD_LIBRARY_PATH="$(pwd)/build/lib"
-          export PKG_CONFIG_PATH="$(pwd)/build/lib/pkgconfig"
-          cd ffmpeg
-          mkdir -p build
-          ./configure --prefix=$(pwd)/build --enable-shared --enable-gpl --enable-nonfree --enable-libsvtav1 --enable-sdl2 --enable-libx264 --enable-libx265 --enable-libaom --enable-libfdk-aac --enable-libopus --enable-libsrt
-          make -rj
-          make install
+          export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
+          export PKG_CONFIG_PATH="$(pwd)/build/lib/pkgconfig:${PKG_CONFIG_PATH}"
+
+          buildtools/scripts/build-ffmpeg.sh --enable-shared --enable-sdl2 --enable-libx264 --enable-libx265 --enable-libaom --enable-libfdk-aac --enable-libopus --enable-libsrt
           tree build
 
       # also need to package DLL dependencies
@@ -69,10 +64,6 @@ jobs:
           cd build/bin && ldd ffmpeg | grep libcrypto | awk '{system("cp "$3" ./")}' && cd ../..
           tree build
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: ffmpeg-bin
-          path: ffmpeg/build/bin/
       - uses: actions/upload-artifact@v3
         with:
           name: ffmpeg-deps-bin

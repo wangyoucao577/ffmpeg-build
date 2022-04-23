@@ -33,19 +33,12 @@ jobs:
 
       - name: Build
         run: |
-          export LD_LIBRARY_PATH="$(pwd)/build/lib"
-          export PKG_CONFIG_PATH="$(pwd)/build/lib/pkgconfig"
-          cd ffmpeg
-          mkdir -p build
-          ./configure --prefix=$(pwd)/build --enable-static --disable-shared --enable-gpl --enable-nonfree --enable-libsvtav1 
-          make -rj
-          make install
+          export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
+          export PKG_CONFIG_PATH="$(pwd)/build/lib/pkgconfig:${PKG_CONFIG_PATH}"
+
+          buildtools/scripts/build-ffmpeg.sh --enable-static --disable-shared
           tree build
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: ffmpeg-bin
-          path: ffmpeg/build/bin/
       - uses: actions/upload-artifact@v3
         with:
           name: ffmpeg-deps-bin
