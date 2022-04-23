@@ -43,7 +43,7 @@ jobs:
 
       - name: Build dependencies
         run: |
-          ./buildtools/build-svtav1.sh
+          ./buildtools/scripts/build-svtav1.sh
           tree build
 
       - name: Build

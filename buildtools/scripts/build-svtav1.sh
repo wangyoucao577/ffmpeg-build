@@ -8,14 +8,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     }
 fi
 
-CURRENT_SCRIPT_PATH=$(realpath $0)
-CURRENT_DIR_PATH=$(dirname $CURRENT_SCRIPT_PATH)
+CURRENT_DIR_PATH=$(dirname $(realpath $0))
+PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 
 # enter build foler
-cd ${CURRENT_DIR_PATH}/../SVT-AV1/Build
+cd ${PROJECT_ROOT_PATH}/SVT-AV1/Build
 
 # build svt-av1
-cmake .. -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/../../build -DBUILD_SHARED_LIBS=OFF
+cmake .. -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build -DBUILD_SHARED_LIBS=OFF
 make && make install
 
 # go back
