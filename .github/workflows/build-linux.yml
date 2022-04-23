@@ -49,7 +49,7 @@ jobs:
     needs:
       build-linux-build-image
     container:
-      image: ${{ needs.build-linux-build-image.outputs.tag }}
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-build:latest
     steps:
       - uses: actions/checkout@v3
         with:
