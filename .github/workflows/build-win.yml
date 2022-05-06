@@ -48,9 +48,6 @@ jobs:
 
       - name: Build
         run: |
-          export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
-          export PKG_CONFIG_PATH="$(pwd)/build/lib/pkgconfig:${PKG_CONFIG_PATH}"
-
           buildtools/scripts/build-ffmpeg.sh --enable-shared --enable-sdl2 --enable-libx264 --enable-libx265 --enable-libaom --enable-libfdk-aac --enable-libopus --enable-libsrt
           tree build
 

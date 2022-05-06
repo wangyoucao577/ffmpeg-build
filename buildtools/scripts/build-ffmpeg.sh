@@ -7,16 +7,19 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
     }
 fi
-
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
+
+
+source ${CURRENT_DIR_PATH}/export-pkg-path.sh
+source ${CURRENT_DIR_PATH}/make-parallel-check.sh
 
 # enter build foler
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
 ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-gpl --enable-nonfree --enable-pic --enable-libsvtav1 "$@"
-make && make install
+make ${MAKE_PARALLEL} && make install
 
 # go back
 cd -
