@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   vim curl wget git git-lfs jq zip unzip tree stow \
   lsb-release software-properties-common gnupg2 autoconf \
   locales-all ca-certificates \
+  libssl-dev \
   && rm -rf /var/lib/apt/lists/*
 
 # install cmake
