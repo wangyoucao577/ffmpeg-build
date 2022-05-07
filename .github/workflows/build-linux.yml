@@ -30,10 +30,10 @@ jobs:
           name: ffmpeg-deps-bin
           path: build/bin/
 
-  build-debian8:
+  build-debian9:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian8
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian9
     steps:
       - uses: actions/checkout@v3
         with:
