@@ -19,15 +19,10 @@ jobs:
         with:
           fetch-depth: '0'
           submodules: 'true'
-
-      - name: Build dependencies
-        run: |
-          ./buildtools/scripts/build-svtav1.sh
-          tree build
-
+          
       - name: Build
         run: |
-          buildtools/scripts/build-ffmpeg.sh --enable-static --disable-shared
+          buildtools/scripts/build.sh
           tree build
 
       - uses: actions/upload-artifact@v3

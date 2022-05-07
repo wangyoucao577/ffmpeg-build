@@ -23,7 +23,7 @@ fi
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
-./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-gpl --enable-nonfree --enable-pic --enable-libsvtav1 "$@"
+./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-gpl --enable-nonfree --enable-pic --enable-static --disable-shared --enable-libsvtav1 "$@"
 ${BEAR_COMMAND} make ${MAKE_PARALLEL} 
 make install
 
