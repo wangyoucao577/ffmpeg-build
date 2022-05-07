@@ -11,7 +11,7 @@ CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 
 
-source ${CURRENT_DIR_PATH}/make-parallel-check.sh
+source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
 cd ${PROJECT_ROOT_PATH}/SVT-AV1/Build

@@ -15,19 +15,10 @@ CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 
 source ${CURRENT_DIR_PATH}/export-pkg-path.sh
-
-# whether enable bear(disable parallel to avoid error)
-echo "DISABLE_BEAR: ${DISABLE_BEAR}" 
-if [[ ${DISABLE_BEAR,,} = "true" || ${DISABLE_BEAR} = "1" ]]; then
-    source ${CURRENT_DIR_PATH}/make-parallel-check.sh
-else
-    BEAR_COMMAND="${PROJECT_ROOT_PATH}/build/bin/bear -- " 
-    MAKE_PARALLEL=""    # parallel make may fail due to bear
-fi
+source ${CURRENT_DIR_PATH}/options.sh
 
 # whether enable nvidia gpu
-if [ -d "/usr/local/cuda" ] && command -v nvidia-smi &> /dev/null ; then
-    echo "Nvidia gpu available"
+if [[ ${NVIDIA_GPU_AVAILABLE,,} = "true" ]]; then
 
     # 1. How to make the FFMPEG_WITH_NV_PARAMS work see
     #    https://superuser.com/questions/360966/how-do-i-use-a-bash-variable-string-containing-quotes-in-a-command

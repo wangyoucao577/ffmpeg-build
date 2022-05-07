@@ -9,12 +9,21 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
 
+source ${CURRENT_DIR_PATH}/options.sh
 
 # build in order
 cd ${CURRENT_DIR_PATH}
+
+if [[ ${NVIDIA_GPU_AVAILABLE,,} = "true" ]]; then
 ./build-nv-codec-headers.sh # useful for ffmpeg with nvidia gpu only
+fi
+
+if [[ ! ${DISABLE_BEAR,,} = "true" ]]; then
 ./build-bear.sh
+fi
+
 ./build-svtav1.sh
 ./build-ffmpeg.sh "$@"
+
 cd - 
 
