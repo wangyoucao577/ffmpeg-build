@@ -3,7 +3,9 @@
 # platform specific options
 echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "linux"* ]]; then
+    :   # nothing to do
 elif [[ "$OSTYPE" == "darwin"* ]]; then
+    :
 else # other types
     DISABLE_BEAR=true
 fi
@@ -13,6 +15,7 @@ fi
 
 # DISABLE_BEAR, enable for linux and mac
 if [[ ${DISABLE_BEAR,,} = "true" || ${DISABLE_BEAR} = "1" ]]; then
+    :
 else
     BEAR_COMMAND="${PROJECT_ROOT_PATH}/build/bin/bear -- " 
     MAKE_PARALLEL=""    # parallel make may fail due to bear
