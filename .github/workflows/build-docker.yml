@@ -1,4 +1,4 @@
-name: Build Docker - linux-debian10
+name: Build Docker
 
 on: 
   push:
@@ -10,12 +10,14 @@ on:
     - 'buildtools/docker/**'
 
 env:
-  IMAGE_NAME: linux-debian10
   DOCKERFILE_PATH: buildtools/docker/
   GITHUB_CONTAINER_REGISTRY: ghcr.io
 
 jobs:
   build:
+    strategy:
+      matrix:
+        image_name: [linux-debian10, linux-debian8]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -29,12 +31,12 @@ jobs:
     - name: Build & Publish to Github Container Registry
       uses: elgohr/Publish-Docker-Github-Action@v4
       with:
-        name: ${{ github.repository }}/${{ env.IMAGE_NAME }}
+        name: ${{ github.repository }}/${{ matrix.image_name }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ${{ env.GITHUB_CONTAINER_REGISTRY }}
         snapshot: false
         workdir: ${{ env.DOCKERFILE_PATH }}
-        dockerfile: ${{ env.IMAGE_NAME }}.dockerfile
+        dockerfile: ${{ matrix.image_name }}.dockerfile
         tags: "latest,${{ env.IMAGE_TAG }}"
         buildargs: "IMAGE_TAG=${{ env.IMAGE_TAG }}"
