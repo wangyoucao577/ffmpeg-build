@@ -4,22 +4,16 @@ Using ffmpeg with Nvidia CUDA NVENC/NVDEC hardware acceleration.
 ## Prerequisites    
 - A ​supported GPU    
 - Supported drivers for your operating system
+  - Run `nvidia-smi` to check
 - The [NVIDIA Codec SDK](https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html)    
   - will be installed in path `/usr/local/cuda` by default on Linux
 
 ## Build  
 
 ```bash
-# ffnvcodec
-$ ./buildtools/scripts/build-nv-codec-headers.sh
-
-# build ffmpeg with cuda only
-#   `--nvccflags="-gencode arch=compute_75,code=sm_75 -O2"` is required for ffmpeg version before n5.0, 
-#   otherwise `ERROR: failed checking for nvcc.` will occur.
-$ ./buildtools/scripts/build-ffmpeg.sh --enable-cuda-nvcc --enable-nvenc --enable-nvdec --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --nvccflags="-gencode arch=compute_75,code=sm_75 -O2"
-
-# or build ffmpeg with cuda and it's other dependencies
-$ ./buildtools/scripts/build.sh --enable-cuda-nvcc --enable-nvenc --enable-nvdec --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --nvccflags="-gencode arch=compute_75,code=sm_75 -O2"
+#  ffmpeg with nvidia gpu and other dependencies have been integrated in 'buildtools/scripts/build.sh', 
+#  see more details in 'buildtools/scripts/build-ffmpeg.sh'
+$ ./buildtools/scripts/build.sh
 ```
 
 ## Run
