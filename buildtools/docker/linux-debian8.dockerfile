@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install --no-install-recommends -y \
   build-essential pkg-config \
   yasm \
-  vim curl wget git git-lfs jq zip unzip tree stow \
+  vim curl wget git jq zip unzip tree stow \
   lsb-release software-properties-common gnupg2 autoconf \
   locales-all ca-certificates \
   && rm -rf /var/lib/apt/lists/*
