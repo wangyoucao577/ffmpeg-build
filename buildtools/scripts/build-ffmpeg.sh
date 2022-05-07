@@ -1,11 +1,15 @@
-#!/bin/bash -x
+#!/bin/bash -ex
+
+FFMPEG_STATIC_SHARED_PARAMS="--enable-static --disable-shared"
 
 echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
-
     realpath() { # there's no realpath command on macosx 
         [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
     }
+elif [[ "$OSTYPE" == msys* ]]; then
+    # build shared on windows
+    FFMPEG_STATIC_SHARED_PARAMS="--disable-static --enable-shared"
 fi
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
@@ -36,7 +40,7 @@ fi
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
-./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-gpl --enable-nonfree --enable-pic --enable-static --disable-shared --enable-libsvtav1 "${FFMPEG_WITH_NV_PARAMS[@]}" "$@"
+./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-gpl --enable-nonfree --enable-pic --enable-libsvtav1 "${FFMPEG_STATIC_SHARED_PARAMS}" "${FFMPEG_WITH_NV_PARAMS[@]}" "$@"
 ${BEAR_COMMAND} make ${MAKE_PARALLEL} 
 make install
 
