@@ -7,3 +7,6 @@
 [submodule "SVT-AV1"]
 	path = SVT-AV1
 	url = https://github.com/AOMediaCodec/SVT-AV1.git
+[submodule "buildtools/bear"]
+	path = buildtools/bear
+	url = https://github.com/rizsotto/Bear.git
