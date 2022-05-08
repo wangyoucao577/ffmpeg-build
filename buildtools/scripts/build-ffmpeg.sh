@@ -14,7 +14,6 @@ fi
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 
-source ${CURRENT_DIR_PATH}/export-pkg-path.sh
 source ${CURRENT_DIR_PATH}/options.sh
 
 # whether enable nvidia gpu
