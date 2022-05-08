@@ -13,3 +13,6 @@
 [submodule "x265"]
 	path = x265
 	url = https://github.com/videolan/x265.git
+[submodule "nasm"]
+	path = nasm
+	url = https://github.com/netwide-assembler/nasm.git

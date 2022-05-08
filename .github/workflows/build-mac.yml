@@ -24,11 +24,11 @@ jobs:
 
       - name: Install tools
         run: |
-          brew install tree bear 
+          brew install tree bear automake
 
-      - name: Install yasm
+      - name: Install libs
         run: |
-          brew install yasm openssl
+          brew install yasm openssl 
 
       - name: Build
         run: |

@@ -14,10 +14,11 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/x265/build/linux
+cd ${PROJECT_ROOT_PATH}/nasm
 
 # build
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build -DENABLE_SHARED=off ../../source
+./autogen.sh
+./configure --prefix=${PROJECT_ROOT_PATH}/build --bindir=${PROJECT_ROOT_PATH}/build/bin
 make ${MAKE_PARALLEL} && make install
 
 # go back

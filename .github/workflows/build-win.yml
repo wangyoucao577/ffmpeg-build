@@ -38,7 +38,7 @@ jobs:
           install: >-
             git make pkgconf diffutils zip tree
             mingw-w64-${{matrix.env}}-cmake mingw-w64-${{matrix.env}}-ninja
-            mingw-w64-${{matrix.env}}-gcc 
+            mingw-w64-${{matrix.env}}-gcc mingw-w64-${{matrix.env}}--autotools
             mingw-w64-${{matrix.env}}-yasm mingw-w64-${{matrix.env}}-SDL2
             mingw-w64-${{matrix.env}}-fdk-aac mingw-w64-${{matrix.env}}-opus 
             mingw-w64-${{matrix.env}}-aom 

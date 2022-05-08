@@ -16,8 +16,8 @@ source ${CURRENT_DIR_PATH}/options.sh
 # enter build foler
 cd ${PROJECT_ROOT_PATH}/x264
 
-# build svt-av1
-./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --enable-pic 
+# build
+./configure --prefix=${PROJECT_ROOT_PATH}/build --bindir=${PROJECT_ROOT_PATH}/build/bin --enable-static --enable-pic 
 make ${MAKE_PARALLEL} && make install
 
 # go back
