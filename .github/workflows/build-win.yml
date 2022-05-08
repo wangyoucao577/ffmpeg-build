@@ -56,7 +56,6 @@ jobs:
       #  by default the compliation depends on system installed openssl(libcrypto), so we need to copy it manually
       - name: Package
         run: |
-          cd ffmpeg
           cd build/bin && ldd ffmpeg | grep ${{matrix.sys}} | awk '{system("cp "$3" ./")}' && cd ../..
           cd build/bin && ldd ffmpeg | grep libcrypto && cd ../..
           cd build/bin && ldd ffmpeg | grep libcrypto | awk '{system("cp "$3" ./")}' && cd ../..
