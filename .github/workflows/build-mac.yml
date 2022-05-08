@@ -24,7 +24,7 @@ jobs:
 
       - name: Install tools
         run: |
-          brew install tree bear automake
+          brew install tree bear automake autoconf
 
       - name: Install libs
         run: |
