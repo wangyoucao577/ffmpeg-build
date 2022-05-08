@@ -50,15 +50,6 @@ jobs:
           buildtools/scripts/build.sh --enable-sdl2 --enable-libx264 --enable-libx265 --enable-libaom --enable-libfdk-aac --enable-libopus --enable-libsrt
           tree build
 
-      # also need to package DLL dependencies
-      #  by default the compliation depends on system installed openssl(libcrypto), so we need to copy it manually
-      - name: Package
-        run: |
-          cd build/bin && ldd ffmpeg | grep ${{matrix.sys}} | awk '{system("cp "$3" ./")}' && cd ../..
-          cd build/bin && ldd ffmpeg | grep libcrypto && cd ../..
-          cd build/bin && ldd ffmpeg | grep libcrypto | awk '{system("cp "$3" ./")}' && cd ../..
-          tree build
-
       - uses: actions/upload-artifact@v3
         with:
           name: ffmpeg-deps-bin
