@@ -6,8 +6,7 @@ on:
     tags:
       - 'v*'
     paths:
-    - '!buildtools/docker/**'
-
+      - '!buildtools/docker/**'
   pull_request:
     branches:
       - main
