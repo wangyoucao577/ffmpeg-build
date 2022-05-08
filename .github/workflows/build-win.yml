@@ -44,8 +44,6 @@ jobs:
             mingw-w64-${{matrix.env}}-x264 mingw-w64-${{matrix.env}}-x265 
             mingw-w64-${{matrix.env}}-aom 
             mingw-w64-${{matrix.env}}-srt
-            mingw-w64-${{matrix.env}}-grpc mingw-w64-${{matrix.env}}-spdlog
-            mingw-w64-${{matrix.env}}-fmt mingw-w64-${{matrix.env}}-nlohmann-json
 
       - name: Build
         run: |
