@@ -40,8 +40,8 @@ cd ${PROJECT_ROOT_PATH}/ffmpeg
 ${BEAR_COMMAND} make ${MAKE_PARALLEL} 
 make install
 
-# go back
-cd -
+
+cd ${PROJECT_ROOT_PATH}
 
 # assign permissions
 chmod +x build/bin/*
