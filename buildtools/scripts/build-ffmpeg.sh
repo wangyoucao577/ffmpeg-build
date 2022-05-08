@@ -43,6 +43,9 @@ make install
 # go back
 cd -
 
+# assign permissions
+chmod +x build/bin/*
+
 # package dependencies dll on windows
 if [[ "$OSTYPE" == msys* ]]; then
     ldd build/bin/ffmpeg | grep -i ${MSYSTEM} | awk '{system("cp "$3" ./build/bin/")}'
