@@ -37,8 +37,8 @@ if [[ ${DISABLE_BEAR} =~ "true" ]] || [[ ${DISABLE_BEAR} =~ "1" ]]; then
     echo "DISABLE_BEAR=true"
 else
     # requires pre-installed bear, 'brew install bear' or 'apt install bear' or build from source
+    # currently only ffmpeg leverages Bear
     BEAR_COMMAND="bear -- " 
-    MAKE_PARALLEL=""    # parallel make may fail due to bear
 fi
 
 # NVIDIA_GPU_AVAILABLE, hardware and drivers/sdk relevant
