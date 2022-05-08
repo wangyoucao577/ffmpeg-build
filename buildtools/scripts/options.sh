@@ -11,6 +11,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     realpath() { # there's no realpath command on macosx 
         [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
     }
+
+    # enable ssl
+    export PKG_CONFIG_PATH=$(brew --prefix)/opt/openssl/lib/pkgconfig:${PKG_CONFIG_PATH}
 else # other types
     DISABLE_BEAR=true
 fi

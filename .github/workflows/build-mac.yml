@@ -28,7 +28,7 @@ jobs:
 
       - name: Install yasm
         run: |
-          brew install yasm
+          brew install yasm openssl
 
       - name: Build
         run: |
