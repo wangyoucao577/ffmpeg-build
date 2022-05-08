@@ -33,3 +33,15 @@ jobs:
         with:
           name: ffmpeg-deps-bin
           path: build/bin/
+
+  test-debian10:
+    needs: build-debian10
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian10
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+      - name: Test
+        run: |
+          ./build/bin/ffmpeg -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
