@@ -18,7 +18,7 @@ source ${CURRENT_DIR_PATH}/export-pkg-path.sh
 source ${CURRENT_DIR_PATH}/options.sh
 
 # whether enable nvidia gpu
-if [[ ${NVIDIA_GPU_AVAILABLE,,} = "true" ]]; then
+if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
 
     # 1. How to make the FFMPEG_WITH_NV_PARAMS work see
     #    https://superuser.com/questions/360966/how-do-i-use-a-bash-variable-string-containing-quotes-in-a-command

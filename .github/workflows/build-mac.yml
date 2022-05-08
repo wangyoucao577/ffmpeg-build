@@ -20,7 +20,7 @@ jobs:
 
       - name: Install tools
         run: |
-          brew install tree
+          brew install tree bear 
 
       - name: Install yasm
         run: |
