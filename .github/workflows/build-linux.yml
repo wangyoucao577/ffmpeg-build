@@ -49,4 +49,3 @@ jobs:
           chmod +x ffmpeg-deps-bin/*
           ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
           ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a copy out.mp4
-          ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a copy out.mp4
