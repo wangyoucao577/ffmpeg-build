@@ -18,6 +18,7 @@ if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
 ./build-nv-codec-headers.sh # useful for ffmpeg with nvidia gpu only
 fi
 
+./build-x264.sh
 ./build-svtav1.sh
 ./build-ffmpeg.sh "$@"
 
