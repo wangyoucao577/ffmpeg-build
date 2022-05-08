@@ -6,14 +6,11 @@ shopt -s nocasematch
 # platform specific options
 echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "linux"* ]]; then
-    DISABLE_BEAR=true
+    :
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     realpath() { # there's no realpath command on macosx 
         [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
     }
-
-    # export ssl
-    export PKG_CONFIG_PATH=$(brew --prefix)/opt/openssl/lib/pkgconfig:${PKG_CONFIG_PATH}
 else # other types
     DISABLE_BEAR=true
 fi
@@ -25,13 +22,18 @@ export LD_LIBRARY_PATH="${PROJECT_ROOT_PATH}/build/lib:${LD_LIBRARY_PATH}"
 export PKG_CONFIG_PATH="${PROJECT_ROOT_PATH}/build/lib/pkgconfig:${PKG_CONFIG_PATH}"
 
 
-# MAKE_PARALLEL, disable parallel on Github Action
-[ -z "${GITHUB_ACTION}" ] && MAKE_PARALLEL="-j"
+# disable parallel and bear on Github Action
+if [ -z "${GITHUB_ACTION}" ]; then
+    MAKE_PARALLEL="-j"
+else
+    DISABLE_BEAR=true 
+fi
 
 # DISABLE_BEAR, enable for linux and mac
 if [[ ${DISABLE_BEAR} =~ "true" ]] || [[ ${DISABLE_BEAR} =~ "1" ]]; then
     echo "DISABLE_BEAR=true"
 else
+    # requires pre-installed bear, 'brew install bear' or 'apt install bear' or build from source
     BEAR_COMMAND="bear -- " 
     MAKE_PARALLEL=""    # parallel make may fail due to bear
 fi

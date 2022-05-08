@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   vim curl wget git git-lfs jq zip unzip tree stow \
   lsb-release software-properties-common gnupg2 autoconf \
   locales-all ca-certificates \
-  python libssl-dev \
   && rm -rf /var/lib/apt/lists/*
 
 # install cmake
@@ -30,15 +29,6 @@ RUN wget --progress=dot:mega https://github.com/ninja-build/ninja/releases/downl
   mv ninja /usr/local/bin/ && \
   rm -f ninja-linux.zip && \
   ninja --version
-
-# install Bear
-RUN git clone -n https://github.com/rizsotto/Bear.git && \
-  cd Bear && \
-  git checkout 3.0.19 && \
-  mkdir -p build && cd build && \
-  cmake -DENABLE_UNIT_TESTS=OFF -DENABLE_FUNC_TESTS=OFF .. && \
-  make all && \
-  make install
 
 # for shown on runtime
 ARG IMAGE_TAG

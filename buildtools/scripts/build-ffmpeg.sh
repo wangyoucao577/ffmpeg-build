@@ -26,7 +26,7 @@ if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
     FFMPEG_WITH_NV_PARAMS=(--enable-cuda-nvcc --enable-nvenc --enable-nvdec --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --nvccflags="-gencode arch=compute_75,code=sm_75 -O2")
 fi
 
-# enter build foler
+# enter build folder
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
