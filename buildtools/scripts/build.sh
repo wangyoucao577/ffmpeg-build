@@ -19,6 +19,7 @@ if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
 fi
 
 ./build-x264.sh
+./build-x265.sh
 ./build-svtav1.sh
 ./build-ffmpeg.sh "$@"
 

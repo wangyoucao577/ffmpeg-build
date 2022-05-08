@@ -41,7 +41,6 @@ jobs:
             mingw-w64-${{matrix.env}}-gcc 
             mingw-w64-${{matrix.env}}-yasm mingw-w64-${{matrix.env}}-SDL2
             mingw-w64-${{matrix.env}}-fdk-aac mingw-w64-${{matrix.env}}-opus 
-            mingw-w64-${{matrix.env}}-x264 mingw-w64-${{matrix.env}}-x265 
             mingw-w64-${{matrix.env}}-aom 
             mingw-w64-${{matrix.env}}-srt
 
@@ -57,4 +56,6 @@ jobs:
 
       - name: Test
         run: | 
-          ./build/bin/ffmpeg -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
+          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
+          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a copy out.mp4
+          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a copy out.mp4
