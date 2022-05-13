@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install basic packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  build-essential pkg-config automake \
+  build-essential pkg-config automake python3-pip \
   yasm nasm libssl-dev \
   vim curl wget git git-lfs jq zip unzip tree stow \
   lsb-release software-properties-common gnupg2 autoconf \
