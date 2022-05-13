@@ -22,13 +22,9 @@ jobs:
           fetch-depth: '0'
           submodules: 'true'
 
-      - name: Install tools
+      - name: Install tools and dependencies
         run: |
-          brew install tree bear automake autoconf
-
-      - name: Install libs
-        run: |
-          brew install yasm nasm openssl 
+          brew install tree bear automake autoconf meson yasm nasm openssl 
 
       - name: Build
         run: |
