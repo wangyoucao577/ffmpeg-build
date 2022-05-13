@@ -21,6 +21,7 @@ fi
 ./build-x264.sh
 #./build-x265.sh
 ./build-svtav1.sh
+./build-vmaf.sh
 ./build-ffmpeg.sh "$@"
 
 cd - 
