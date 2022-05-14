@@ -36,7 +36,7 @@ fi
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
-./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-gpl --enable-version3 --enable-nonfree --enable-pic --enable-openssl --enable-libvmaf --ld=g++ --enable-libx264 --enable-libsvtav1 ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "$@"
+./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-gpl --enable-version3 --enable-nonfree --enable-pic --enable-openssl --enable-libvmaf --ld=g++ --enable-libx264 --enable-libsvtav1 --enable-sdl ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "$@"
 ${BEAR_COMMAND} make ${MAKE_PARALLEL}
 make install
 
