@@ -20,7 +20,7 @@ cd ${PROJECT_ROOT_PATH}/SDL
 if [[ "$OSTYPE" == "darwin"* ]]; then
     MAXOSX_EXTRA_CC="CC=${PROJECT_ROOT_PATH}/SDL/build-scripts/clang-fat.sh"
 fi
-${MAXOSX_EXTRA_CC} ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared
+eval ${MAXOSX_EXTRA_CC} ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared
 make ${MAKE_PARALLEL} && make install
 
 # go back
