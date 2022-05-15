@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 FFMPEG_STATIC_SHARED_PARAMS="--enable-static --disable-shared"
 

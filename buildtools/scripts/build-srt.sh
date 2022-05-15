@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
