@@ -21,6 +21,7 @@ fi
 ./build-x264.sh
 ./build-x265.sh
 ./build-svtav1.sh
+./build-aom.sh
 ./build-opus.sh
 ./build-fdk-aac.sh
 ./build-vmaf.sh
