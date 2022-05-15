@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     strategy:
       matrix:
         include:
@@ -52,20 +52,11 @@ jobs:
           name: ffmpeg-deps-bin
           path: build/bin/
 
-  test:
-    needs: build
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Download all artifacts
-        uses: actions/download-artifact@v3
       - name: Test
         run: | 
           set -x
-          tree ffmpeg-deps-bin
-          chmod +x ffmpeg-deps-bin/*
-          ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
-          ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libaom-av1 -c:a copy out.mp4
-          ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a libopus out.mp4
-          ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a libfdk_aac out.mp4
-          # ./ffmpeg-deps-bin/ffmpeg -y -i out.mp4 -i ./tests/small_bunny_1080p_60fps.mp4 -lavfi "libvmaf=log_fmt=xml:log_path=/dev/stdout:model_path=./ffmpeg-deps-bin/vmaf_v0.6.1.json" -f null -
+          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
+          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libaom-av1 -c:a copy out.mp4
+          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a libopus out.mp4
+          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a libfdk_aac out.mp4
+          # ./build/bin/ffmpeg -y -i out.mp4 -i ./tests/small_bunny_1080p_60fps.mp4 -lavfi "libvmaf=log_fmt=xml:log_path=/dev/stdout:model_path=./build/bin/vmaf_v0.6.1.json" -f null -
