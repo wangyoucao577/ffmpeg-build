@@ -41,11 +41,10 @@ jobs:
             mingw-w64-${{matrix.env}}-cmake mingw-w64-${{matrix.env}}-ninja
             mingw-w64-${{matrix.env}}-meson mingw-w64-${{matrix.env}}-autotools
             mingw-w64-${{matrix.env}}-yasm mingw-w64-${{matrix.env}}-nasm
-            mingw-w64-${{matrix.env}}-srt
 
       - name: Build
         run: |
-          buildtools/scripts/build.sh --enable-libsrt
+          buildtools/scripts/build.sh 
           tree build
 
       - uses: actions/upload-artifact@v3

@@ -26,6 +26,7 @@ fi
 ./build-fdk-aac.sh
 ./build-vmaf.sh
 ./build-sdl.sh
+./build-srt.sh
 ./build-ffmpeg.sh "$@"
 
 cd - 
