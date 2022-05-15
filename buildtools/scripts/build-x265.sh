@@ -14,10 +14,10 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/x265/build/linux
+cd ${PROJECT_ROOT_PATH}/x265/build
 
 # build
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build -DENABLE_SHARED=off ../../source
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build -DENABLE_SHARED=off ../source
 make ${MAKE_PARALLEL} && make install
 
 # go back
