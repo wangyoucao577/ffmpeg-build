@@ -25,3 +25,6 @@
 [submodule "fdk-aac"]
 	path = fdk-aac
 	url = https://github.com/mstorsjo/fdk-aac.git
+[submodule "aom"]
+	path = aom
+	url = https://aomedia.googlesource.com/aom
