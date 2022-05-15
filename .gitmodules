@@ -28,3 +28,6 @@
 [submodule "aom"]
 	path = aom
 	url = https://aomedia.googlesource.com/aom
+[submodule "srt"]
+	path = srt
+	url = https://github.com/Haivision/srt.git
