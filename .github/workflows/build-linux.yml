@@ -48,6 +48,6 @@ jobs:
           tree ffmpeg-deps-bin
           chmod +x ffmpeg-deps-bin/*
           ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
-          ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a copy out.mp4
+          ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a libopus out.mp4
           ./ffmpeg-deps-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a copy out.mp4
           ./ffmpeg-deps-bin/ffmpeg -y -i out.mp4 -i ./tests/small_bunny_1080p_60fps.mp4 -lavfi "libvmaf=log_fmt=xml:log_path=/dev/stdout:model_path=./ffmpeg-deps-bin/vmaf_v0.6.1.json" -f null -
