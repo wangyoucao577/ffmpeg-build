@@ -17,6 +17,7 @@ source ${CURRENT_DIR_PATH}/options.sh
 cd ${PROJECT_ROOT_PATH}/fdk-aac
 
 # build
+./autogen.sh
 ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared
 make ${MAKE_PARALLEL} && make install
 
