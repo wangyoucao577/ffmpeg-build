@@ -50,5 +50,6 @@ Makefile
 
 # build temp
 build
+out*
 
 .DS_Store

@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [        
+        {
+            "name": "ffmpeg_g",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/ffmpeg/ffmpeg_g",
+            "args": [
+                "-y",
+                "-i", 
+                "${workspaceFolder}/tests/small_bunny_1080p_60fps.mp4",
+                "-c",
+                "copy",
+                "out.mp4",
+            ],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
