@@ -24,6 +24,9 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 export LD_LIBRARY_PATH="${PROJECT_ROOT_PATH}/build/lib:${LD_LIBRARY_PATH}"
 export PKG_CONFIG_PATH="${PROJECT_ROOT_PATH}/build/lib/pkgconfig:${PKG_CONFIG_PATH}"
 
+# build type 
+BUILD_TYPE=release
+# BUILD_TYPE=debug
 
 # disable parallel and bear on Github Action
 if [ -z "${GITHUB_ACTION}" ]; then

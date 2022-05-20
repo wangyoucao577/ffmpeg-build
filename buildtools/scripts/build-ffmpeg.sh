@@ -16,6 +16,11 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 
 source ${CURRENT_DIR_PATH}/options.sh
 
+# build type
+if [[ ${BUILD_TYPE} == "debug" ]]; then
+    FFMPEG_DEBUG_PARAMS=(--enable-debug=3 --disable-optimizations --disable-stripping --extra-cflags=-fno-omit-frame-pointer --extra-cflags=-fno-inline)
+fi
+
 # whether enable nvidia gpu
 if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
 
@@ -36,7 +41,7 @@ fi
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
-./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-gpl --enable-version3 --enable-nonfree --enable-pic --pkg-config-flags="--static" --enable-libvmaf --ld=g++ --extra-libs="-pthread -ldl" --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom --enable-libopus --enable-libfdk-aac --enable-sdl --enable-libsrt --enable-openssl ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "$@"
+./configure --prefix=${PROJECT_ROOT_PATH}/build  --enable-gpl --enable-version3 --enable-nonfree --enable-pic --pkg-config-flags="--static" --enable-libvmaf --ld=g++ --extra-libs="-pthread -ldl" --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom --enable-libopus --enable-libfdk-aac --enable-sdl --enable-libsrt --enable-openssl ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 ${BEAR_COMMAND} make ${MAKE_PARALLEL}
 make install
 
