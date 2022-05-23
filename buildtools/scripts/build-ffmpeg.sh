@@ -41,10 +41,15 @@ fi
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
+# ready but NOT add: --enable-librtmp
 ./configure --prefix=${PROJECT_ROOT_PATH}/build  --enable-gpl --enable-version3 --enable-nonfree \
-  --enable-pic --pkg-config-flags="--static" --enable-libvmaf --ld=g++ --extra-libs="-pthread -ldl" \
-  --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom --enable-libopus --enable-libfdk-aac \
-  --enable-sdl --enable-libsrt --enable-openssl --enable-librtmp \
+  --enable-pic --pkg-config-flags="--static" --ld=g++ --extra-libs="-pthread -ldl" \
+  --enable-libvmaf \
+  --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom \
+  --enable-libopus --enable-libfdk-aac \
+  --enable-sdl \
+  --enable-libsrt \
+  --enable-openssl \
   ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 ${BEAR_COMMAND} make ${MAKE_PARALLEL}
 make install
