@@ -31,3 +31,6 @@
 [submodule "srt"]
 	path = srt
 	url = https://github.com/Haivision/srt.git
+[submodule "rtmpdump"]
+	path = rtmpdump
+	url = https://github.com/wangyoucao577/rtmpdump.git

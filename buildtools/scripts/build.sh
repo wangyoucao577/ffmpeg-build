@@ -27,6 +27,7 @@ fi
 ./build-vmaf.sh
 ./build-sdl.sh
 ./build-srt.sh
+./build-rtmpdump.sh
 ./build-ffmpeg.sh "$@"
 
 cd - 
