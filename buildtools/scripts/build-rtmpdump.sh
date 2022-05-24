@@ -26,7 +26,7 @@ source ${CURRENT_DIR_PATH}/options.sh
 cd ${PROJECT_ROOT_PATH}/rtmpdump
 
 # build
-make install ${MAKE_PARALLEL} SYS=${SYS} SHARED= CRYPTO= XDEF=-DNO_SSL prefix=${PROJECT_ROOT_PATH}/build
+${BEAR_COMMAND} make install ${MAKE_PARALLEL} SYS=${SYS} SHARED= CRYPTO= XDEF=-DNO_SSL prefix=${PROJECT_ROOT_PATH}/build
 
 # go back
 cd ${PROJECT_ROOT_PATH}
