@@ -14,12 +14,12 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/SVT-AV1/Build
+cd ${PROJECT_ROOT_PATH}/third-party/SVT-AV1/Build
 
 # build
 cmake .. -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build -DBUILD_SHARED_LIBS=OFF
 make ${MAKE_PARALLEL} && make install
 
 # go back
-cd -
+cd ${PROJECT_ROOT_PATH}
 

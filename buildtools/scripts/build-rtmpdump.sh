@@ -23,7 +23,7 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/rtmpdump
+cd ${PROJECT_ROOT_PATH}/third-party/rtmpdump
 
 # build
 ${BEAR_COMMAND} make install ${MAKE_PARALLEL} SYS=${SYS} SHARED= CRYPTO= XDEF=-DNO_SSL prefix=${PROJECT_ROOT_PATH}/build

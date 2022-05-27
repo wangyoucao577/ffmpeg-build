@@ -14,7 +14,7 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/aom
+cd ${PROJECT_ROOT_PATH}/third-party/aom
 mkdir -p build-tmp
 cd build-tmp
 

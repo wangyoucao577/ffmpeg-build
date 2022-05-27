@@ -14,7 +14,7 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/opus
+cd ${PROJECT_ROOT_PATH}/third-party/opus
 
 # build
 ./autogen.sh
@@ -22,5 +22,5 @@ cd ${PROJECT_ROOT_PATH}/opus
 make ${MAKE_PARALLEL} && make install
 
 # go back
-cd -
+cd ${PROJECT_ROOT_PATH}
 

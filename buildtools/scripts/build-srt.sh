@@ -14,7 +14,7 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/srt
+cd ${PROJECT_ROOT_PATH}/third-party/srt
 mkdir -p build
 cd build
 

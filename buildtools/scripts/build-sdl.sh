@@ -14,11 +14,11 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/SDL
+cd ${PROJECT_ROOT_PATH}/third-party/SDL
 
 # build
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    MAXOSX_EXTRA_CC="CC=${PROJECT_ROOT_PATH}/SDL/build-scripts/clang-fat.sh"
+    MAXOSX_EXTRA_CC="CC=${PROJECT_ROOT_PATH}/third-party/SDL/build-scripts/clang-fat.sh"
 fi
 eval ${MAXOSX_EXTRA_CC} ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared
 make ${MAKE_PARALLEL} && make install
