@@ -12,23 +12,21 @@ CURRENT_DIR_PATH=$(dirname $(realpath $0))
 source ${CURRENT_DIR_PATH}/options.sh
 
 # build in order
-cd ${CURRENT_DIR_PATH}
 
 if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
-./build-nv-codec-headers.sh # useful for ffmpeg with nvidia gpu only
+${CURRENT_DIR_PATH}/build-nv-codec-headers.sh # useful for ffmpeg with nvidia gpu only
 fi
 
-./build-x264.sh
-./build-x265.sh
-./build-svtav1.sh
-./build-aom.sh
-./build-opus.sh
-./build-fdk-aac.sh
-./build-vmaf.sh
-./build-sdl.sh
-./build-srt.sh
-./build-rtmpdump.sh
-./build-ffmpeg.sh "$@"
+${CURRENT_DIR_PATH}/build-x264.sh
+${CURRENT_DIR_PATH}/build-x265.sh
+${CURRENT_DIR_PATH}/build-svtav1.sh
+${CURRENT_DIR_PATH}/build-aom.sh
+${CURRENT_DIR_PATH}/build-opus.sh
+${CURRENT_DIR_PATH}/build-fdk-aac.sh
+${CURRENT_DIR_PATH}/build-vmaf.sh
+${CURRENT_DIR_PATH}/build-sdl.sh
+${CURRENT_DIR_PATH}/build-srt.sh
+${CURRENT_DIR_PATH}/build-rtmpdump.sh
+${CURRENT_DIR_PATH}/build-ffmpeg.sh "$@"
 
-cd - 
 
