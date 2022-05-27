@@ -2,7 +2,7 @@
 
 FFMPEG_STATIC_SHARED_PARAMS="--enable-static --disable-shared"
 
-echo "OSTYPE: $OSTYPE"
+# echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
     realpath() { # there's no realpath command on macosx 
         [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
@@ -42,6 +42,7 @@ cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
 # ready but NOT add: --enable-librtmp
+set -x
 ./configure --prefix=${PROJECT_ROOT_PATH}/build  --enable-gpl --enable-version3 --enable-nonfree \
   --enable-pic --pkg-config-flags="--static" --ld=g++ --extra-libs="-pthread -ldl" \
   --enable-libvmaf \
@@ -53,7 +54,7 @@ cd ${PROJECT_ROOT_PATH}/ffmpeg
   ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 ${BEAR_COMMAND} make ${MAKE_PARALLEL}
 make install
-
+set +x
 
 cd ${PROJECT_ROOT_PATH}
 

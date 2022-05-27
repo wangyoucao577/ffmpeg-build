@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-echo "OSTYPE: $OSTYPE"
+# echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
     realpath() { # there's no realpath command on macosx 
@@ -20,8 +20,10 @@ cd ${PROJECT_ROOT_PATH}/third-party/SDL
 if [[ "$OSTYPE" == "darwin"* ]]; then
     MAXOSX_EXTRA_CC="CC=${PROJECT_ROOT_PATH}/third-party/SDL/build-scripts/clang-fat.sh"
 fi
+set -x
 eval ${MAXOSX_EXTRA_CC} ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared
 make ${MAKE_PARALLEL} && make install
+set +x
 
 # go back
 cd ${PROJECT_ROOT_PATH}

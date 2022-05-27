@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-echo "OSTYPE: $OSTYPE"
+# echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
     realpath() { # there's no realpath command on macosx 
@@ -17,9 +17,11 @@ source ${CURRENT_DIR_PATH}/options.sh
 cd ${PROJECT_ROOT_PATH}/third-party/opus
 
 # build
+set -x
 ./autogen.sh
 ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared
 make ${MAKE_PARALLEL} && make install
+set +x
 
 # go back
 cd ${PROJECT_ROOT_PATH}

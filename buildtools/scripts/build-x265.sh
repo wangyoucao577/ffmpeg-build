@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-echo "OSTYPE: $OSTYPE"
+# echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
     realpath() { # there's no realpath command on macosx 
@@ -17,8 +17,10 @@ source ${CURRENT_DIR_PATH}/options.sh
 cd ${PROJECT_ROOT_PATH}/third-party/x265/build
 
 # build
+set -x
 cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build -DENABLE_SHARED=off ../source
 make ${MAKE_PARALLEL} && make install
+set +x
 
 # go back
 cd ${PROJECT_ROOT_PATH}

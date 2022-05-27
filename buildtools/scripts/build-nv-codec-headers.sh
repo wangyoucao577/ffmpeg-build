@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-echo "OSTYPE: $OSTYPE"
+# echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
     realpath() { # there's no realpath command on macosx 
@@ -15,8 +15,10 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 cd ${PROJECT_ROOT_PATH}/third-party/nv-codec-headers 
 
 # build, install to customized build folder
+set -x
 sed -i "s#/usr/local#${PROJECT_ROOT_PATH}/build#g" Makefile
 PREFIX=${PROJECT_ROOT_PATH}/build make install
+set +x
 
 # go back
 cd ${PROJECT_ROOT_PATH}
