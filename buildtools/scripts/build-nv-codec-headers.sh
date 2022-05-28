@@ -16,8 +16,7 @@ cd ${PROJECT_ROOT_PATH}/third-party/nv-codec-headers
 
 # build, install to customized build folder
 set -x
-sed -i "s#/usr/local#${PROJECT_ROOT_PATH}/build#g" Makefile
-PREFIX=${PROJECT_ROOT_PATH}/build make install
+make install PREFIX=${PROJECT_ROOT_PATH}/build
 set +x
 
 # go back
