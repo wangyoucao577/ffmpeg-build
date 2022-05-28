@@ -2,10 +2,12 @@
 
 # echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
-
-    realpath() { # there's no realpath command on macosx 
-        [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+    # there's no realpath command on macosx 
+    realpath() {
+         [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}" 
     }
+elif [[ "$OSTYPE" == "msys"* ]]; then
+    USE_CMAKE=TRUE  # use cmake on windows
 fi
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
@@ -17,10 +19,17 @@ source ${CURRENT_DIR_PATH}/options.sh
 cd ${PROJECT_ROOT_PATH}/third-party/opus
 
 # build
+mkdir -p build && cd build
 set -x
-./autogen.sh
-./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared
-make ${MAKE_PARALLEL} && make install
+if [[ ${USE_CMAKE} == "TRUE" ]]; then
+    sed -i "s/FORTIFY_SOURCE=2/FORTIFY_SOURCE=0/g" ../CMakeLists.txt
+    cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build
+    cmake --build . ${MAKE_PARALLEL} && cmake --install .
+else
+    ./autogen.sh
+    ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared
+    make ${MAKE_PARALLEL} && make install
+fi
 set +x
 
 # go back
