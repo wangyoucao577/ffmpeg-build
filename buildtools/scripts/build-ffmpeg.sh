@@ -10,6 +10,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 elif [[ "$OSTYPE" == msys* ]]; then
     # build shared on windows
     FFMPEG_STATIC_SHARED_PARAMS="--disable-static --enable-shared"
+    MSYS_BUILD_EXTRA_LDFLAGS=(-fstack-protector)  # to avoid error when link opus
 fi
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
@@ -44,7 +45,8 @@ cd ${PROJECT_ROOT_PATH}/ffmpeg
 # ready but NOT add: --enable-librtmp
 set -x
 ./configure --prefix=${PROJECT_ROOT_PATH}/build  --enable-gpl --enable-version3 --enable-nonfree \
-  --enable-pic --pkg-config-flags="--static" --ld=g++ --extra-libs="-pthread -ldl" \
+  --enable-pic --pkg-config-flags="--static" --ld=g++ \
+  --extra-ldflags="${MSYS_BUILD_EXTRA_LDFLAGS}" --extra-libs="-pthread" \
   --enable-libvmaf \
   --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom \
   --enable-libopus --enable-libfdk-aac \
@@ -53,8 +55,8 @@ set -x
   --enable-openssl \
   ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 ${BEAR_COMMAND} make ${MAKE_PARALLEL}
-make install
 set +x
+make install
 
 cd ${PROJECT_ROOT_PATH}
 
@@ -65,4 +67,3 @@ chmod +x build/bin/*
 if [[ "$OSTYPE" == msys* ]]; then
     ldd build/bin/ffmpeg | grep -i ${MSYSTEM} | awk '{system("cp "$3" ./build/bin/")}'
 fi
-
