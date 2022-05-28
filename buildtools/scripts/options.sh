@@ -30,7 +30,7 @@ BUILD_TYPE=release
 
 # disable parallel and bear on Github Action
 if [ -z "${GITHUB_ACTION}" ]; then
-    MAKE_PARALLEL="-j"
+    MAKE_PARALLEL="-j $(nproc)"
 else
     DISABLE_BEAR=true 
 fi
