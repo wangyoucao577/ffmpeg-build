@@ -38,7 +38,6 @@ cd ${PROJECT_ROOT_PATH}/ffmpeg
 # build ffmpeg, extra params will be appended at the end
 # ready but NOT add: --enable-librtmp
 set -x
-make -i clean
 ./configure --prefix=${PROJECT_ROOT_PATH}/build  --enable-gpl --enable-version3 --enable-nonfree \
   --enable-pic --pkg-config-flags="--static" --ld=g++ \
   --extra-ldflags="${MSYS_BUILD_EXTRA_LDFLAGS}" --extra-libs="-pthread" \
@@ -49,6 +48,7 @@ make -i clean
   --enable-libsrt \
   --enable-openssl \
   ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
+make -i clean
 ${BEAR_COMMAND} make ${BEAR_MAKE_PARALLEL}
 set +x
 make install
