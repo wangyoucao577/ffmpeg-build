@@ -26,7 +26,7 @@ set -x
 if [[ ${USE_CMAKE} == "TRUE" ]]; then
     mkdir -p build && cd build
     # sed -i "s/FORTIFY_SOURCE=2/FORTIFY_SOURCE=0/g" ../CMakeLists.txt
-    cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build
+    cmake .. "${PREFERRED_CMAKE_GERERATOR}" -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build
     cmake --build . ${MAKE_PARALLEL} && cmake --install .
 else
     ./autogen.sh

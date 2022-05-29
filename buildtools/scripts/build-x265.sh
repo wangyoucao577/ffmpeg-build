@@ -14,12 +14,15 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/third-party/x265/build
+cd ${PROJECT_ROOT_PATH}/third-party/x265/source
 
 # build
 set -x
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build -DENABLE_SHARED=off ../source
-make ${MAKE_PARALLEL} && make install
+rm -rf ./build && mkdir -p build && cd build
+cmake .. "${PREFERRED_CMAKE_GERERATOR}" \
+    -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build -DENABLE_SHARED=off 
+cmake --build . ${MAKE_PARALLEL} && cmake --install . 
+cd .. && rm -rf ./build
 set +x
 
 # go back

@@ -3,6 +3,11 @@
 # case-insensitive match
 shopt -s nocasematch
 
+# preferred cmake generator
+# PREFERRED_CMAKE_GERERATOR=
+# PREFERRED_CMAKE_GERERATOR=(-G"Unix Makefiles")
+PREFERRED_CMAKE_GERERATOR=(-GNinja)
+
 # platform specific options
 # echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "linux"* ]]; then

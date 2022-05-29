@@ -15,12 +15,14 @@ source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
 cd ${PROJECT_ROOT_PATH}/third-party/aom
-mkdir -p cmbuild
-cd cmbuild
 
 # build
 set -x
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build -DBUILD_SHARED_LIBS=OFF
+rm -rf ./cmbuild && mkdir -p cmbuild && cd cmbuild
+cmake .. "${PREFERRED_CMAKE_GERERATOR}" \
+    -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=OFF
 cmake --build . ${MAKE_PARALLEL} && cmake --install . 
 set +x 
 

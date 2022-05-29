@@ -20,12 +20,12 @@ source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
 cd ${PROJECT_ROOT_PATH}/third-party/srt
-mkdir -p _build
-cd _build
 
 # build
 set -x
-cmake .. -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build \
+rm -rf ./_build && mkdir -p _build && cd _build
+cmake .. "${PREFERRED_CMAKE_GERERATOR}" \
+    -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build \
     -DENABLE_SHARED=OFF -DBUILD_SHARED_LIBS=OFF \
     -DENABLE_DEBUG=OFF -DCMAKE_BUILD_TYPE=Release \
     ${PLATFORM_SPECIFIC_PARAMS}
