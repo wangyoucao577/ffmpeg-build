@@ -4,6 +4,9 @@
 	"name": "webrtc-dev",
 	"image": "ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11",
 	"runArgs": ["--cap-add=ALL", "--security-opt" ,"seccomp=unconfined", "--privileged"],
+	"containerEnv": {
+		"FFMPEG_BUILD_TYPE": "Debug" 
+	},
 
 	// Set *default* container specific settings.json values on container create.
 	// use my repo settings.json
@@ -24,7 +27,7 @@
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode",
 	"features": {
-		// "docker-in-docker": "latest",
+		"docker-in-docker": "latest",
 		"sshd": "latest"
 	}
 }
