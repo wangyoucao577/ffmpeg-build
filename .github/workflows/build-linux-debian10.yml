@@ -1,4 +1,4 @@
-name: Build - linux
+name: Build - linux-debian10
 on: 
   push:
     branches:
@@ -15,10 +15,10 @@ on:
       - main
 
 jobs:
-  build-debian11:
+  build-debian10:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian10
     steps:
       - uses: actions/checkout@v3
         with:
@@ -35,11 +35,11 @@ jobs:
           name: ffmpeg-deps-bin
           path: build/bin/
 
-  test-debian11:
-    needs: build-debian11
+  test-debian10:
+    needs: build-debian10
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian10
     steps:
       - uses: actions/checkout@v3
       - name: Download all artifacts
