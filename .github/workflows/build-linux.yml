@@ -16,6 +16,9 @@ on:
 
 jobs:
   build-debian11:
+    strategy:
+      matrix:
+        build_type: [Debug, Release]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
@@ -27,6 +30,7 @@ jobs:
           
       - name: Build
         run: |
+          export FFMPEG_BUILD_TYPE=${{ matrix.build_type }}
           buildtools/scripts/build.sh
           tree build
 
