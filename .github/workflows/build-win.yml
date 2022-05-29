@@ -9,10 +9,10 @@ on:
       - 'buildtools/docker/**'
       - 'docs/**'
       - '.vscode/**'
+      - '.devcontainer/**'
   pull_request:
     branches:
       - main
-
 
 jobs:
   build:
