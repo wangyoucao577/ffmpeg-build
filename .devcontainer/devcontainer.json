@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.233.0/containers/cpp
 {
 	"name": "webrtc-dev",
-	"image": "ghcr.io/wangyoucao577/nv-dev",
+	"image": "ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11",
 	"runArgs": ["--cap-add=ALL", "--security-opt" ,"seccomp=unconfined", "--privileged"],
 
 	// Set *default* container specific settings.json values on container create.
