@@ -34,7 +34,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ffmpeg-deps-bin
+          name: ffmpeg-bin
           path: build/bin/
 
       - name: Test
