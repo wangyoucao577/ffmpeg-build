@@ -5,31 +5,9 @@ FROM debian:stretch-slim
 # avoid interactive during apt install
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Install basic packages
-RUN apt-get update && apt-get install --no-install-recommends -y \
-  build-essential pkg-config \
-  yasm \
-  vim curl wget git jq zip unzip tree stow \
-  lsb-release software-properties-common gnupg2 autoconf \
-  locales-all ca-certificates \
-  libssl-dev \
-  && rm -rf /var/lib/apt/lists/*
-
-# install cmake
-RUN wget --progress=dot:mega https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1-linux-x86_64.tar.gz && \
-  tar -zxf cmake-3.23.1-linux-x86_64.tar.gz && \
-  mv cmake-3.23.1-linux-x86_64 /usr/local/ && \
-  rm cmake-3.23.1-linux-x86_64.tar.gz && \
-  cd /usr/local/cmake-3.23.1-linux-x86_64/ && \
-  stow -v --ignore=man . && \
-  cmake --version
-
-# install ninja
-RUN wget --progress=dot:mega https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip && \
-  unzip ninja-linux.zip && \
-  mv ninja /usr/local/bin/ && \
-  rm -f ninja-linux.zip && \
-  ninja --version
+# install base tools
+COPY *.sh /
+RUN /install-tools-debian.sh
 
 # for shown on runtime
 ARG IMAGE_TAG
