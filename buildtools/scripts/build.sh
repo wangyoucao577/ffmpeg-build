@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-echo "OSTYPE: $OSTYPE"
+# echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
     realpath() { # there's no realpath command on macosx 

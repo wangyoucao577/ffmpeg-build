@@ -27,7 +27,8 @@ cd ${PROJECT_ROOT_PATH}/third-party/rtmpdump
 
 # build
 set -x
-${BEAR_COMMAND} make install ${MAKE_PARALLEL} SYS=${SYS} SHARED= CRYPTO= XDEF=-DNO_SSL prefix=${PROJECT_ROOT_PATH}/build
+make -i clean
+${BEAR_COMMAND} make install ${BEAR_MAKE_PARALLEL} SYS=${SYS} SHARED= CRYPTO= XDEF=-DNO_SSL prefix=${PROJECT_ROOT_PATH}/build
 set +x
 
 # go back

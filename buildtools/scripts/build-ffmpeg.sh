@@ -18,7 +18,7 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # build type
-if [[ ${BUILD_TYPE} == "debug" ]]; then
+if [[ ${FFMPEG_BUILD_TYPE_INTERNAL} == "Debug" ]]; then
     FFMPEG_DEBUG_PARAMS=(--enable-debug=3 --disable-optimizations --disable-stripping --extra-cflags=-fno-omit-frame-pointer --extra-cflags=-fno-inline)
 fi
 
@@ -32,18 +32,13 @@ if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
     FFMPEG_WITH_NV_PARAMS=(--enable-cuda-nvcc --enable-nvenc --enable-nvdec --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --nvccflags="-gencode arch=compute_75,code=sm_75 -O2")
 fi
 
-if [[ ${DISABLE_BEAR} =~ "true" ]] || [[ ${DISABLE_BEAR} =~ "1" ]]; then 
-    :
-else
-    MAKE_PARALLEL=""    # parallel make may fail due to bear
-fi
-
 # enter build folder
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
 # ready but NOT add: --enable-librtmp
 set -x
+make -i clean
 ./configure --prefix=${PROJECT_ROOT_PATH}/build  --enable-gpl --enable-version3 --enable-nonfree \
   --enable-pic --pkg-config-flags="--static" --ld=g++ \
   --extra-ldflags="${MSYS_BUILD_EXTRA_LDFLAGS}" --extra-libs="-pthread" \
@@ -54,7 +49,7 @@ set -x
   --enable-libsrt \
   --enable-openssl \
   ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
-${BEAR_COMMAND} make ${MAKE_PARALLEL}
+${BEAR_COMMAND} make ${BEAR_MAKE_PARALLEL}
 set +x
 make install
 

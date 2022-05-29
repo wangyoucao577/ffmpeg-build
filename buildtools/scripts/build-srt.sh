@@ -27,7 +27,7 @@ rm -rf ./_build && mkdir -p _build && cd _build
 cmake .. "${PREFERRED_CMAKE_GERERATOR}" \
     -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build \
     -DENABLE_SHARED=OFF -DBUILD_SHARED_LIBS=OFF \
-    -DENABLE_DEBUG=OFF -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=${FFMPEG_BUILD_TYPE_INTERNAL} \
     ${PLATFORM_SPECIFIC_PARAMS}
 cmake --build . ${MAKE_PARALLEL} && cmake --install .
 set +x

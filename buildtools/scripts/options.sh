@@ -8,6 +8,21 @@ shopt -s nocasematch
 # PREFERRED_CMAKE_GERERATOR=(-G"Unix Makefiles")
 PREFERRED_CMAKE_GERERATOR=(-GNinja)
 
+# build type, check from env FFMPEG_BUILD_TYPE
+# It only affects the libraries that may want to debug, such as ffmpeg, srt, rtmpdump, etc.
+MAKE_PARALLEL="-j $(nproc)"
+BEAR_MAKE_PARALLEL=${MAKE_PARALLEL}
+if [[ ${FFMPEG_BUILD_TYPE} =~ "debug" ]]; then
+    FFMPEG_BUILD_TYPE_INTERNAL="Debug"
+
+    # requires pre-installed bear, 'brew install bear' or 'apt install bear' or build from source
+    # disable parallel when enable bear to avoid build error
+    BEAR_COMMAND="bear -- " 
+    BEAR_MAKE_PARALLEL=  
+else
+    FFMPEG_BUILD_TYPE_INTERNAL="Release"    # otherwise release
+fi
+
 # platform specific options
 # echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "linux"* ]]; then
@@ -20,7 +35,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # enable ssl
     export PKG_CONFIG_PATH=$(brew --prefix)/opt/openssl/lib/pkgconfig:${PKG_CONFIG_PATH}
 else # other types
-    DISABLE_BEAR=true
+    :
 fi
 
 # use "${PROJECT_ROOT_PATH}/build" as build dependencies path
@@ -29,26 +44,6 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 export LD_LIBRARY_PATH="${PROJECT_ROOT_PATH}/build/lib:${LD_LIBRARY_PATH}"
 export PKG_CONFIG_PATH="${PROJECT_ROOT_PATH}/build/lib/pkgconfig:${PKG_CONFIG_PATH}"
 
-# build type 
-BUILD_TYPE=release
-# BUILD_TYPE=debug
-
-# disable parallel and bear on Github Action
-if [ -z "${GITHUB_ACTION}" ]; then
-    MAKE_PARALLEL="-j $(nproc)"
-else
-    DISABLE_BEAR=true 
-fi
-
-# DISABLE_BEAR, enable for linux and mac
-if [[ ${DISABLE_BEAR} =~ "true" ]] || [[ ${DISABLE_BEAR} =~ "1" ]]; then
-    # echo "DISABLE_BEAR=true"
-    :
-else
-    # requires pre-installed bear, 'brew install bear' or 'apt install bear' or build from source
-    # currently only ffmpeg leverages Bear
-    BEAR_COMMAND="bear -- " 
-fi
 
 # NVIDIA_GPU_AVAILABLE, hardware and drivers/sdk relevant
 if [ -d "/usr/local/cuda" ] && command -v nvidia-smi &> /dev/null ; then
