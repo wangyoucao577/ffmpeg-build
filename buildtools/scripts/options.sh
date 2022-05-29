@@ -8,9 +8,25 @@ shopt -s nocasematch
 # PREFERRED_CMAKE_GERERATOR=(-G"Unix Makefiles")
 PREFERRED_CMAKE_GERERATOR=(-GNinja)
 
+# platform specific options
+# echo "OSTYPE: $OSTYPE"
+if [[ "$OSTYPE" == "linux"* ]]; then
+    NPROC=$(nproc)
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    realpath() { # there's no realpath command on macosx 
+        [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+    }
+    NPROC=$(sysctl -n hw.physicalcpu)
+
+    # enable ssl
+    export PKG_CONFIG_PATH=$(brew --prefix)/opt/openssl/lib/pkgconfig:${PKG_CONFIG_PATH}
+else # other types
+    NPROC=$(nproc)
+fi
+
 # build type, check from env FFMPEG_BUILD_TYPE
 # It only affects the libraries that may want to debug, such as ffmpeg, srt, rtmpdump, etc.
-MAKE_PARALLEL="-j $(nproc)"
+MAKE_PARALLEL="-j ${NPROC}"
 BEAR_MAKE_PARALLEL=${MAKE_PARALLEL}
 if [[ ${FFMPEG_BUILD_TYPE} =~ "debug" ]]; then
     FFMPEG_BUILD_TYPE_INTERNAL="Debug"
@@ -23,20 +39,6 @@ else
     FFMPEG_BUILD_TYPE_INTERNAL="Release"    # otherwise release
 fi
 
-# platform specific options
-# echo "OSTYPE: $OSTYPE"
-if [[ "$OSTYPE" == "linux"* ]]; then
-    :
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    realpath() { # there's no realpath command on macosx 
-        [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
-    }
-
-    # enable ssl
-    export PKG_CONFIG_PATH=$(brew --prefix)/opt/openssl/lib/pkgconfig:${PKG_CONFIG_PATH}
-else # other types
-    :
-fi
 
 # use "${PROJECT_ROOT_PATH}/build" as build dependencies path
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
