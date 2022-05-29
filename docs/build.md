@@ -1,5 +1,5 @@
 # Build
-Build ffmpeg with its dependencies from source, with debugging support.     
+Build [ffmpeg](../ffmpeg/) with its [dependencies](../third-party/) from source, optionally with debugging support.     
 
 ## Prerequisites
 
@@ -50,3 +50,5 @@ export FFMPEG_BUILD_TYPE=Debug
 
 ## References
 - [CompilationGuide](https://trac.ffmpeg.org/wiki/CompilationGuide)
+- [Platform Specific Information](https://www.ffmpeg.org/platform.html)
+
