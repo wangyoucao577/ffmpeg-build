@@ -17,6 +17,7 @@ if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
 ${CURRENT_DIR_PATH}/build-nv-codec-headers.sh # useful for ffmpeg with nvidia gpu only
 fi
 
+${CURRENT_DIR_PATH}/build-openssl.sh
 ${CURRENT_DIR_PATH}/build-x264.sh
 ${CURRENT_DIR_PATH}/build-x265.sh
 ${CURRENT_DIR_PATH}/build-svtav1.sh
