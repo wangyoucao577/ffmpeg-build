@@ -34,3 +34,6 @@
 [submodule "rtmpdump"]
 	path = third-party/rtmpdump
 	url = https://github.com/wangyoucao577/rtmpdump.git
+[submodule "third-party/openssl"]
+	path = third-party/openssl
+	url = https://github.com/openssl/openssl.git
