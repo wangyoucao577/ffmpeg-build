@@ -3,6 +3,11 @@
 # case-insensitive match
 shopt -s nocasematch
 
+# preferred ssl
+# PREFERRED_SSL=system
+# PREFERRED_SSL=boringssl
+PREFERRED_SSL=openssl
+
 # preferred cmake generator
 # PREFERRED_CMAKE_GERERATOR=
 # PREFERRED_CMAKE_GERERATOR=(-G"Unix Makefiles")
@@ -17,6 +22,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
     }
     NPROC=$(sysctl -n hw.physicalcpu)
+    if [[ ${PREFERRED_SSL} == system ]]; then
+        export PKG_CONFIG_PATH=$(brew --prefix)/opt/openssl/lib/pkgconfig:${PKG_CONFIG_PATH}
+    fi
 else # other types
     NPROC=$(nproc)
 fi
@@ -40,9 +48,12 @@ fi
 # use "${PROJECT_ROOT_PATH}/build" as build dependencies path
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
-export LD_LIBRARY_PATH="${PROJECT_ROOT_PATH}/build/lib:${PROJECT_ROOT_PATH}/build/lib64:${LD_LIBRARY_PATH}"
-export PKG_CONFIG_PATH="${PROJECT_ROOT_PATH}/build/lib/pkgconfig:${PROJECT_ROOT_PATH}/build/lib64/pkgconfig:${PKG_CONFIG_PATH}"
-
+export LD_LIBRARY_PATH="${PROJECT_ROOT_PATH}/build/lib:${LD_LIBRARY_PATH}"
+export PKG_CONFIG_PATH="${PROJECT_ROOT_PATH}/build/lib/pkgconfig:${PKG_CONFIG_PATH}"
+if [[ ${PREFERRED_SSL} == openssl ]]; then
+    export LD_LIBRARY_PATH="${PROJECT_ROOT_PATH}/build/lib64:${LD_LIBRARY_PATH}"
+    export PKG_CONFIG_PATH="${PROJECT_ROOT_PATH}/build/lib64/pkgconfig:${PKG_CONFIG_PATH}"
+fi
 
 # NVIDIA_GPU_AVAILABLE, hardware and drivers/sdk relevant
 if [ -d "/usr/local/cuda" ] && command -v nvidia-smi &> /dev/null ; then

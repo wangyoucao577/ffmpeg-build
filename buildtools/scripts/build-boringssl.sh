@@ -14,19 +14,20 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 # enter build foler
-cd ${PROJECT_ROOT_PATH}/third-party/openssl
+cd ${PROJECT_ROOT_PATH}/third-party/boringssl
 
 # build
 set -x
-./Configure --prefix=${PROJECT_ROOT_PATH}/build -static no-shared 
-make ${MAKE_PARALLEL} 
+rm -rf ./build && mkdir -p build && cd build
+cmake .. "${PREFERRED_CMAKE_GERERATOR}" \
+    -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DCMAKE_BUILD_TYPE=Release 
+cmake --build . ${MAKE_PARALLEL} 
 
-if [[ ${PREFERRED_SSL} == openssl ]]; then
-    make install
+if [[ ${PREFERRED_SSL} == boringssl ]]; then
+    cmake --install . 
 fi
-
-# remove useless file
-rm test/evp_pkey_ctx_new_from_name
 
 set +x
 
