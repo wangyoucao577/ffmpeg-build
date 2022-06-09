@@ -35,7 +35,6 @@ wget --progress=dot:mega --no-check-certificate https://go.dev/dl/$(curl https:/
   mv go /usr/local/ && \
   rm -f go.linux-amd64.tar.gz && \
   cd /usr/local/go/ && \
-  stow -v --ignore=doc . && \
+  stow -v -t ../bin bin && \
   cd ~ && \
   go version
-  
