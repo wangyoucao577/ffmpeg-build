@@ -18,6 +18,7 @@ ${CURRENT_DIR_PATH}/build-nv-codec-headers.sh # useful for ffmpeg with nvidia gp
 fi
 
 ${CURRENT_DIR_PATH}/build-openssl.sh
+${CURRENT_DIR_PATH}/build-boringssl.sh
 ${CURRENT_DIR_PATH}/build-x264.sh
 ${CURRENT_DIR_PATH}/build-x265.sh
 ${CURRENT_DIR_PATH}/build-svtav1.sh
