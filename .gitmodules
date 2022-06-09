@@ -37,3 +37,6 @@
 [submodule "third-party/openssl"]
 	path = third-party/openssl
 	url = https://github.com/openssl/openssl.git
+[submodule "third-party/boringssl"]
+	path = third-party/boringssl
+	url = https://github.com/google/boringssl.git
