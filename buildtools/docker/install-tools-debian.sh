@@ -34,7 +34,8 @@ wget --progress=dot:mega --no-check-certificate https://go.dev/dl/$(curl https:/
   tar -zxf go.linux-amd64.tar.gz && \
   mv go /usr/local/ && \
   rm -f go.linux-amd64.tar.gz && \
-  mkdir -p go/bin /go/src go/pkg
-export GO_HOME=/usr/local/go
-export GOPATH=/go
-export PATH=${GOPATH}/bin:${GO_HOME}/bin/:$PATH
+  cd /usr/local/go/ && \
+  stow -v --ignore=doc . && \
+  cd ~ && \
+  go version
+  
