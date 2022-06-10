@@ -18,15 +18,12 @@ cd ${PROJECT_ROOT_PATH}/third-party/openssl
 
 # build
 set -x
-./Configure --prefix=${PROJECT_ROOT_PATH}/build -static no-shared 
+./Configure --prefix=${PROJECT_ROOT_PATH}/build no-shared no-tests
 make ${MAKE_PARALLEL} 
 
 if [[ ${PREFERRED_SSL} == openssl ]]; then
     make install
 fi
-
-# remove useless file
-rm test/evp_pkey_ctx_new_from_name
 
 set +x
 
