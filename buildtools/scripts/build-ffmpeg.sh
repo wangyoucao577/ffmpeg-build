@@ -36,7 +36,14 @@ fi
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
 # build ffmpeg, extra params will be appended at the end
-# ready but NOT add: --enable-librtmp
+# 1. ready but NOT add, too old and don't like to use: --enable-librtmp
+# 2. static linking executable: --extra-ldexeflags="-static"
+#    by this option, `ldd build/bin/ffmpeg` will shows `not a dynamic executable`
+#    after add this option, openssl need to be disabled since it requires `-ldl` for `dlopen` functions.
+#    `--enable-gnutls` could be an anlternative in such case.    
+#    other options that requires dynamic linking are also need to be removed, such as `--enable-libnpp` and so on. 
+#    one more thing is that it may only useful for linux, because macosx doesn't provide static linkable libc, 
+#    cygwin/msys2/mingw env also requies to link their DLL.    
 set -x
 ./configure --prefix=${PROJECT_ROOT_PATH}/build  --enable-gpl --enable-version3 --enable-nonfree \
   --enable-pic --pkg-config-flags="--static" --ld=g++ \
