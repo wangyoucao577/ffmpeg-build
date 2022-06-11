@@ -6,6 +6,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     realpath() { # there's no realpath command on macosx 
         [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
     }
+elif [[ "$OSTYPE" == "msys"* ]]; then
+    # disable boringssl since don't want to debug on github action at the moment
+    echo "boringssl on ${OSTYPE} currently disabled"
+    exit 0
 fi
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
