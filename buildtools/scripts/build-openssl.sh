@@ -19,6 +19,7 @@ cd ${PROJECT_ROOT_PATH}/third-party/openssl
 # build
 set -x
 ./Configure --prefix=${PROJECT_ROOT_PATH}/build no-shared no-tests
+make -i clean
 make ${MAKE_PARALLEL} 
 
 if [[ ${PREFERRED_SSL} == openssl ]]; then
