@@ -22,7 +22,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      build_profiles: ["android-armv7", "android-armv8", "android-x86_64"] 
+      matrix:
+        build_profiles: ["android-armv7", "android-armv8", "android-x86_64"] 
     steps:
       - uses: actions/checkout@v3
         with:
