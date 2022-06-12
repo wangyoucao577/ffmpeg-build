@@ -41,7 +41,9 @@ jobs:
       # build
       - name: Build
         run: | 
-          conan create -pr buildtools/conan/profiles/${{ matrix.build_profiles }} buildtools/conan/boringssl
+          cd buildtools/conan
+          conan create -pr profiles/${{ matrix.build_profiles }} boringssl
+          conan create -pr profiles/${{ matrix.build_profiles }} openssl
 
       # view built conan packages
       - name: View built packages
