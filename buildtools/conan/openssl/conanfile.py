@@ -23,8 +23,8 @@ class OpensslConan(ConanFile):
                 "no-tests"]
 
         if self.settings.os == "Android":
-            print("path={}".format(toos.get_env("PATH")))
-            print("ANDROID_NDK_ROOT={}".format(toos.get_env("ANDROID_NDK_ROOT")))
+            print("path={}".format(tools.get_env("PATH")))
+            print("ANDROID_NDK_ROOT={}".format(tools.get_env("ANDROID_NDK_ROOT")))
             path_prefix="PATH=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin/:${PATH}"
             print("path_prefix={}".format(path_prefix))
             self.run("ls -lh ${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin/")
