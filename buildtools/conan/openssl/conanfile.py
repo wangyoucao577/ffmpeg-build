@@ -22,7 +22,9 @@ class OpensslConan(ConanFile):
                 "shared" if self.options.shared else "no-shared",
                 "no-tests"]
 
-        if self.settings.os == "Android":            
+        if self.settings.os == "Android":
+            path_prefix="PATH=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin:${PATH}"
+
             # https://github.com/openssl/openssl/blob/master/NOTES-ANDROID.md
             args.append(" -D__ANDROID_API__=%s" % str(self.settings.os.api_level))  
             if self.settings.arch == "armv7":
@@ -38,7 +40,7 @@ class OpensslConan(ConanFile):
             # TODO: 
             pass
 
-        self.run("./Configure {args}".format(args=" ".join(args)))
+        self.run("{path_prefix} ./Configure {args}".format(path_prefix=path_prefix, args=" ".join(args)))
         self.run("make -j $(nproc)")
         self.run("make install")
 
