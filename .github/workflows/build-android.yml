@@ -1,0 +1,48 @@
+name: Build - android
+
+on: 
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+    paths-ignore:
+      - 'buildtools/docker/**'
+      - 'docs/**'
+      - '.vscode/**'
+      - '.devcontainer/**'
+  pull_request:
+    branches:
+      - main
+
+env:
+  CONAN_PRINT_RUN_COMMANDS: 1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      build_profiles: ["android-armv7", "android-armv8", "android-x86_64"] 
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+
+      # setup build tools: ninja, conan, yasm
+      - uses: seanmiddleditch/gha-setup-ninja@master
+      - uses: turtlebrowser/get-conan@main
+      - name: Install and check tools
+        run: |
+          sudo apt install tree 
+          conan --version && ninja --version && echo $PATH
+
+      # build
+      - name: Build
+        run: | 
+          conan create -pr buildtools/conan/profiles/${{ matrix.build_profiles }} buildtools/conan/boringssl
+
+      # view built conan packages
+      - name: View built packages
+        run : |
+          conan search "*"

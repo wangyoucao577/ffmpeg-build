@@ -1,0 +1,13 @@
+[settings]
+arch=armv7
+os=Android
+os.api_level=16
+compiler=clang
+compiler.version=9
+compiler.libcxx=c++_static
+os_build=Linux
+arch_build=x86_64
+build_type=Release
+[options]
+[build_requires]
+[env]
