@@ -24,7 +24,7 @@ class OpensslConan(ConanFile):
 
         if self.settings.os == "Android":
             # self.run("export PATH=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin/:${PATH}")
-            with tools.environment_append({"PATH": "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"}):
+            with tools.environment_append({"PATH": os.path.join(tools.getenv("ANDROID_NDK_ROOT"), "toolchains/llvm/prebuilt/linux-x86_64/bin") + ":" + tools.getenv("PATH")}):
                 self.run("echo $PATH")
 
                 # https://github.com/openssl/openssl/blob/master/NOTES-ANDROID.md
