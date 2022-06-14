@@ -24,20 +24,23 @@ class OpensslConan(ConanFile):
 
         if self.settings.os == "Android":
             # self.run("export PATH=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin/:${PATH}")
-            with tools.environment_append({"PATH": os.path.join(tools.get_env("ANDROID_NDK_ROOT"), "toolchains/llvm/prebuilt/linux-x86_64/bin") + ":" + tools.get_env("PATH")}):
-                self.run("echo $PATH")
+            with tools.environment_append({"ANDROID_NDK_ROOT": os.path.join(tools.get_env("ANDROID_SDK_ROOT"), "ndk/23.2.8568313")}):
+                with tools.environment_append({"PATH": os.path.join(tools.get_env("ANDROID_NDK_ROOT"), "toolchains/llvm/prebuilt/linux-x86_64/bin") + ":" + tools.get_env("PATH")}):
+                    self.run("echo $ANDROID_NDK_ROOT")
+                    self.run("echo $PATH")
+                    self.run("ls -lh ${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin")
 
-                # https://github.com/openssl/openssl/blob/master/NOTES-ANDROID.md
-                args.append(" -D__ANDROID_API__=%s" % str(self.settings.os.api_level))  
-                if self.settings.arch == "armv7":
-                    args.append("android-arm")
-                elif self.settings.arch == "armv8":
-                    args.append("android-arm64")
-                elif self.settings.arch == "x86_64":
-                    args.append("android-x86_64")
-                else:
-                    print("unknown android arch {}".format(self.settings.arch))
-                    os.exit(1)
+                    # https://github.com/openssl/openssl/blob/master/NOTES-ANDROID.md
+                    args.append(" -D__ANDROID_API__=%s" % str(self.settings.os.api_level))  
+                    if self.settings.arch == "armv7":
+                        args.append("android-arm")
+                    elif self.settings.arch == "armv8":
+                        args.append("android-arm64")
+                    elif self.settings.arch == "x86_64":
+                        args.append("android-x86_64")
+                    else:
+                        print("unknown android arch {}".format(self.settings.arch))
+                        os.exit(1)
         elif self.settings.os == "iOS":
             # https://github.com/openssl/openssl/blob/master/Configurations/15-ios.conf
             # https://github.com/openssl/openssl/issues/15851
