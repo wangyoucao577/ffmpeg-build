@@ -23,7 +23,7 @@ class OpensslConan(ConanFile):
                 "no-tests"]
 
         if self.settings.os == "Android":
-            self.run("export PATH=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin/:${PATH}")
+            # self.run("export PATH=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin/:${PATH}")
             self.run("echo $PATH")
 
             # https://github.com/openssl/openssl/blob/master/NOTES-ANDROID.md
@@ -65,3 +65,9 @@ class OpensslConan(ConanFile):
     def package_info(self):
         self.cpp_info.libs = ["openssl"]
 
+        # for android building
+        if self.settings.os == "Android":
+            # openssl requires end with something like '23.2.8568313', but github hosted runner use `ndk-bundle` soft link
+            if "ndk-bundle" in self.env_info.ANDROID_NDK_ROOT:
+                self.env_info.ANDROID_NDK_ROOT=os.path.join(tools.getenv("ANDROID_SDK_ROOT"), "ndk/23.2.8568313")
+            self.env_info.PATH.append(os.path.join(self.env_info.ANDROID_NDK_ROOT, "toolchains/llvm/prebuilt/linux-x86_64/bin"))
