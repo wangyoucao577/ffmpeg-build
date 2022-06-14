@@ -21,6 +21,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-android-sdk
     strategy:
       matrix:
         build_profiles: ["android-armv7", "android-armv8", "android-x86_64"] 
@@ -29,14 +31,6 @@ jobs:
         with:
           fetch-depth: '0'
           submodules: 'true'
-
-      # setup build tools: ninja, conan, yasm
-      - uses: seanmiddleditch/gha-setup-ninja@master
-      - uses: turtlebrowser/get-conan@main
-      - name: Install and check tools
-        run: |
-          sudo apt install tree 
-          conan --version && ninja --version && echo $PATH
 
       # build
       - name: Build
