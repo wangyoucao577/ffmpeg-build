@@ -23,6 +23,10 @@ class OpensslConan(ConanFile):
                 "no-tests"]
 
         if self.settings.os == "Android":
+            # workaround to avoid build error with ndk r23c, issue https://github.com/openssl/openssl/issues/18560
+            self.run("export ANDROID_NDK_ROOT=${ANDROID_SDK_ROOT}/ndk/21.4.7075529")
+            self.run("export ANDROID_NDK_HOME=${ANDROID_NDK_ROOT}")
+
             self.run("export PATH=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/bin/:${PATH}")
 
             # https://github.com/openssl/openssl/blob/master/NOTES-ANDROID.md
