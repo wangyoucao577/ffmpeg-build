@@ -13,6 +13,10 @@ apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-re
 pip3 install meson && \
   meson --version
 
+# install conan
+pip3 install conan && \
+  conan --version
+
 # install cmake
 wget --progress=dot:mega https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1-linux-x86_64.tar.gz && \
   tar -zxf cmake-3.23.1-linux-x86_64.tar.gz && \

@@ -1,0 +1,45 @@
+name: Build - android
+
+on: 
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+    paths-ignore:
+      - 'buildtools/docker/**'
+      - 'docs/**'
+      - '.vscode/**'
+      - '.devcontainer/**'
+  pull_request:
+    branches:
+      - main
+
+env:
+  CONAN_PRINT_RUN_COMMANDS: 1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-android-sdk
+    strategy:
+      matrix:
+        build_profiles: ["android-armv7", "android-armv8", "android-x86_64"] 
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+
+      # build
+      - name: Build
+        run: | 
+          cd buildtools/conan
+          conan create -pr profiles/${{ matrix.build_profiles }} openssl
+          conan create -pr profiles/${{ matrix.build_profiles }} boringssl
+
+      # view built conan packages
+      - name: View built packages
+        run : |
+          conan search "*"
