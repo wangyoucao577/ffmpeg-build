@@ -22,19 +22,23 @@ class OpensslConan(ConanFile):
                 "shared" if self.options.shared else "no-shared",
                 "no-tests"]
 
+        path = tools.get_env("PATH")
         if self.settings.os == "Android":
-            with tools.environment_append({"PATH": os.path.join(tools.get_env("ANDROID_NDK_ROOT"), "toolchains/llvm/prebuilt/linux-x86_64/bin") + ":" + tools.get_env("PATH")}):
-                # https://github.com/openssl/openssl/blob/master/NOTES-ANDROID.md
-                args.append(" -D__ANDROID_API__=%s" % str(self.settings.os.api_level))  
-                if self.settings.arch == "armv7":
-                    args.append("android-arm")
-                elif self.settings.arch == "armv8":
-                    args.append("android-arm64")
-                elif self.settings.arch == "x86_64":
-                    args.append("android-x86_64")
-                else:
-                    print("unknown android arch {}".format(self.settings.arch))
-                    os.exit(1)
+            # https://github.com/openssl/openssl/blob/master/NOTES-ANDROID.md
+
+            # android build requires ndk toolchain bin in path
+            path = os.path.join(tools.get_env("ANDROID_NDK_ROOT"), "toolchains/llvm/prebuilt/linux-x86_64/bin") + ":" + path
+
+            args.append(" -D__ANDROID_API__=%s" % str(self.settings.os.api_level))  
+            if self.settings.arch == "armv7":
+                args.append("android-arm")
+            elif self.settings.arch == "armv8":
+                args.append("android-arm64")
+            elif self.settings.arch == "x86_64":
+                args.append("android-x86_64")
+            else:
+                print("unknown android arch {}".format(self.settings.arch))
+                os.exit(1)
         elif self.settings.os == "iOS":
             # https://github.com/openssl/openssl/blob/master/Configurations/15-ios.conf
             # https://github.com/openssl/openssl/issues/15851
@@ -56,9 +60,10 @@ class OpensslConan(ConanFile):
                 os.exit(1)
             args.append("-fvisibility=hidden")
 
-        self.run("./Configure {args}".format(args=" ".join(args)))
-        self.run("make -j {}".format(tools.cpu_count()))
-        self.run("make install")
+        with tools.environment_append({"PATH": path}):
+            self.run("./Configure {args}".format(args=" ".join(args)))
+            self.run("make -j {}".format(tools.cpu_count()))
+            self.run("make install")
 
     def package_info(self):
         self.cpp_info.libs = ["openssl"]
