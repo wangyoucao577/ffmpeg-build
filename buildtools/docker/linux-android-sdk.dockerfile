@@ -20,8 +20,8 @@ RUN wget --progress=dot:mega https://dl.google.com/android/repository/android-nd
   ln -s $(pwd)/ndk/android-ndk-r23c $(pwd)/ndk/23.2.8568313 && \
   ln -s $(pwd)/ndk/android-ndk-r23c $(pwd)/ndk-bundle && \
   echo ANDROID_SDK_ROOT=/root/Android/Sdk >> /etc/environment && \
-  echo ANDROID_NDK_ROOT=${ANDROID_SDK_ROOT}/ndk/23.2.8568313 >> /etc/environment && \
-  echo ANDROID_NDK_HOME=${ANDROID_NDK_ROOT} >> /etc/environment
+  echo ANDROID_NDK_ROOT=/root/Android/Sdk/ndk/23.2.8568313 >> /etc/environment && \
+  echo ANDROID_NDK_HOME=/root/Android/Sdk/ndk/23.2.8568313 >> /etc/environment
   
 
 # for shown on runtime
