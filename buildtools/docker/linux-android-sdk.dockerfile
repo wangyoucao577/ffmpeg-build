@@ -22,7 +22,9 @@ RUN wget --progress=dot:mega https://dl.google.com/android/repository/android-nd
   echo ANDROID_SDK_ROOT=/root/Android/Sdk >> /etc/environment && \
   echo ANDROID_NDK_ROOT=/root/Android/Sdk/ndk/23.2.8568313 >> /etc/environment && \
   echo ANDROID_NDK_HOME=/root/Android/Sdk/ndk/23.2.8568313 >> /etc/environment
-  
+ENV ANDROID_SDK_ROOT=/root/Android/Sdk
+ENV ANDROID_NDK_ROOT=/root/Android/Sdk/ndk/23.2.8568313
+ENV ANDROID_NDK_HOME=/root/Android/Sdk/ndk/23.2.8568313
 
 # for shown on runtime
 ARG IMAGE_TAG
