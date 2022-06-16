@@ -45,7 +45,8 @@ cd ${PROJECT_ROOT_PATH}/ffmpeg
 #    one more thing is that it may only useful for linux, because macosx doesn't provide static linkable libc, 
 #    cygwin/msys2/mingw env also requies to link their DLL.    
 set -x
-./configure --prefix=${PROJECT_ROOT_PATH}/build  --enable-gpl --enable-version3 --enable-nonfree \
+./configure --prefix=${PROJECT_ROOT_PATH}/build \
+  --enable-gpl --enable-version3 --enable-nonfree \
   --enable-pic --pkg-config-flags="--static" --ld=g++ \
   --extra-ldflags="${MSYS_BUILD_EXTRA_LDFLAGS}" --extra-libs="-pthread" \
   --enable-libvmaf \
@@ -56,7 +57,7 @@ set -x
   --enable-openssl \
   ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 make -i clean
-${BEAR_COMMAND} make ${BEAR_MAKE_PARALLEL}
+${BEAR_COMMAND} make ${BEAR_MAKE_PARALLEL} build
 set +x
 make install
 
