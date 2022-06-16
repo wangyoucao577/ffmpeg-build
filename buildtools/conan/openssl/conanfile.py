@@ -20,7 +20,9 @@ class OpensslConan(ConanFile):
         prefix = tools.unix_path(self.package_folder)
         args = ["--prefix=%s" % prefix,
                 "shared" if self.options.shared else "no-shared",
-                "no-tests"]
+                "no-tests",
+                "no-module",
+                "-fvisibility=hidden"]
 
         path = tools.get_env("PATH")
         if self.settings.os == "Android":
@@ -44,21 +46,22 @@ class OpensslConan(ConanFile):
             # https://github.com/openssl/openssl/issues/15851
             if self.settings.arch == "armv7":
                 args.append("ios-xcrun")
-                # args.append("-fembed-bitcode")
+                args.append("-fembed-bitcode")
+                args.append("-mios-version-min={}".format(self.settings.os.version))
 
                 # Fixes "Undefined symbols for architecture armv7: ___atomic_is_lock_free"
                 # see more details in https://github.com/macports/macports-ports/blob/f543051794963064ea924697f7a33428936fbe2a/devel/openssl3/Portfile#L132-L136
                 args.append("-DBROKEN_CLANG_ATOMICS")
             elif self.settings.arch == "armv8":
                 args.append("ios64-xcrun")
-                # args.append("-fembed-bitcode")
+                args.append("-fembed-bitcode")
+                args.append("-mios-version-min={}".format(self.settings.os.version))
             elif self.settings.arch == "x86_64":
                 args.append("iossimulator-xcrun")
                 args.append("-mios-simulator-version-min={}".format(self.settings.os.version))
             else:
                 print("unknown ios arch {}".format(self.settings.arch))
                 os.exit(1)
-            args.append("-fvisibility=hidden")
 
         with tools.environment_append({"PATH": path}):
             self.run("./Configure {args}".format(args=" ".join(args)))
