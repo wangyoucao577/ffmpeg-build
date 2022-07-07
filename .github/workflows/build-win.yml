@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: windows-latest
     strategy:
       matrix:
         include:
@@ -41,9 +41,10 @@ jobs:
             mingw-w64-${{matrix.env}}-cmake mingw-w64-${{matrix.env}}-ninja
             mingw-w64-${{matrix.env}}-meson mingw-w64-${{matrix.env}}-autotools
             mingw-w64-${{matrix.env}}-yasm mingw-w64-${{matrix.env}}-nasm
-      # - name: Remove msys installed openssl
-      #   run: |
-      #     pacman -R -c --noconfirm mingw-w64-${{matrix.env}}-openssl
+      - name: Remove system installed openssl
+        run: |
+          rm -f /c/Windows/SYSTEM32/libssl*.dll
+          rm -f /c/Windows/SYSTEM32/libcrypto*.dll
 
       - name: Build
         run: |
@@ -56,18 +57,9 @@ jobs:
           name: ffmpeg-bin-${{matrix.sys}}
           path: build/bin/
 
-      # - name: Test
-      #   run: | 
-      #     set -x
-      #     ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
-      #     # ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libaom-av1 -c:a copy out.mp4
-      #     ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a libopus out.mp4
-      #     ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a libfdk_aac out.mp4
-      #     # ./build/bin/ffmpeg -y -i out.mp4 -i ./tests/small_bunny_1080p_60fps.mp4 -lavfi "libvmaf=log_fmt=xml:log_path=/dev/stdout:model_path=./build/bin/vmaf_v0.6.1.json" -f null -
-
   test:
     needs: build
-    runs-on: windows-2022
+    runs-on: windows-latest
     strategy:
       matrix:
         include:
