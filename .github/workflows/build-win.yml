@@ -41,14 +41,15 @@ jobs:
             mingw-w64-${{matrix.env}}-cmake mingw-w64-${{matrix.env}}-ninja
             mingw-w64-${{matrix.env}}-meson mingw-w64-${{matrix.env}}-autotools
             mingw-w64-${{matrix.env}}-yasm mingw-w64-${{matrix.env}}-nasm
-      - name: Remove msys installed openssl
-        run: |
-          pacman -R -c --noconfirm mingw-w64-${{matrix.env}}-openssl
+      # - name: Remove msys installed openssl
+      #   run: |
+      #     pacman -R -c --noconfirm mingw-w64-${{matrix.env}}-openssl
 
       - name: Build
         run: |
           buildtools/scripts/build.sh 
           tree build
+          ldd build/bin/ffmpeg
 
       - uses: actions/upload-artifact@v3
         with:
