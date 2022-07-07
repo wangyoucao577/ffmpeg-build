@@ -43,6 +43,8 @@ jobs:
             mingw-w64-${{matrix.env}}-yasm mingw-w64-${{matrix.env}}-nasm
       - name: Remove system installed openssl
         run: |
+          # patch to avoid system installed ssl dependency
+          # in this env, mingw64/ucrt64 ssl will still be used rather than project-built
           rm -f /c/Windows/SYSTEM32/libssl*.dll
           rm -f /c/Windows/SYSTEM32/libcrypto*.dll
 
