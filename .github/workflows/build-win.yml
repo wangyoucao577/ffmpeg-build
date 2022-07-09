@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: windows-latest
     strategy:
       matrix:
         include:
@@ -41,27 +41,45 @@ jobs:
             mingw-w64-${{matrix.env}}-cmake mingw-w64-${{matrix.env}}-ninja
             mingw-w64-${{matrix.env}}-meson mingw-w64-${{matrix.env}}-autotools
             mingw-w64-${{matrix.env}}-yasm mingw-w64-${{matrix.env}}-nasm
-            mingw-w64-${{matrix.env}}-go
-
-      - name: Setup go
+      - name: Remove system installed openssl
         run: |
-          export GOROOT=${MSYSTEM_PREFIX}/lib/go 
+          # patch to avoid system installed ssl dependency
+          # in this env, mingw64/ucrt64 ssl will still be used rather than project-built
+          rm -f /c/Windows/SYSTEM32/libssl*.dll
+          rm -f /c/Windows/SYSTEM32/libcrypto*.dll
 
       - name: Build
         run: |
           buildtools/scripts/build.sh 
           tree build
+          ldd build/bin/ffmpeg
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ffmpeg-bin
+          name: ffmpeg-bin-${{matrix.sys}}
           path: build/bin/
 
+  test:
+    needs: build
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - { sys: mingw64, env: x86_64 }
+          - { sys: ucrt64,  env: ucrt-x86_64 }  # Experimental!
+          # - { sys: clang64, env: clang-x86_64 } # Experimental!
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ffmpeg-bin-${{matrix.sys}}
+          path: ffmpeg-bin
+
       - name: Test
-        run: | 
-          set -x
-          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
-          # ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libaom-av1 -c:a copy out.mp4
-          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a libopus out.mp4
-          ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a libfdk_aac out.mp4
-          # ./build/bin/ffmpeg -y -i out.mp4 -i ./tests/small_bunny_1080p_60fps.mp4 -lavfi "libvmaf=log_fmt=xml:log_path=/dev/stdout:model_path=./build/bin/vmaf_v0.6.1.json" -f null -
+        run: |
+          ./ffmpeg-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out.mp4
+          # ./ffmpeg-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libaom-av1 -c:a copy out.mp4
+          ./ffmpeg-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a libopus out.mp4
+          ./ffmpeg-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a libfdk_aac out.mp4
+          # ./ffmpeg-bin/ffmpeg -y -i out.mp4 -i ./tests/small_bunny_1080p_60fps.mp4 -lavfi "libvmaf=log_fmt=xml:log_path=/dev/stdout:model_path=./build/bin/vmaf_v0.6.1.json" -f null -
