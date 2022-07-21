@@ -34,6 +34,32 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "ffplay_g",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/ffmpeg/ffplay_g",
+            "args": [
+                "${workspaceFolder}/tests/small_bunny_1080p_60fps.mp4",
+            ],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "linux": {
+                "MIMode": "gdb",
+            },
+            "osx": {
+                "MIMode": "lldb",
+            },
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
         }
     ]
 }
