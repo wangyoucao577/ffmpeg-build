@@ -1,10 +1,15 @@
 # ffmpeg-build    
-[![Build - linux](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-linux.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-linux.yml) [![Build - win](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-win.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-win.yml) [![Build - mac](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-mac.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-mac.yml) [![Build - docker](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-docker.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-docker.yml) 
+[![Build - linux](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-linux.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-linux.yml) [![Build - win](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-win.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-win.yml) [![Build - mac](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-mac.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-mac.yml) [![Build - ios](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-ios.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-ios.yml) [![Build - android](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-android.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-android.yml) [![Build - docker](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-docker.yml/badge.svg)](https://github.com/wangyoucao577/ffmpeg-build/actions/workflows/build-docker.yml)       
 
-Build [ffmpeg](./ffmpeg) and its dependencies from source.      
+Build [ffmpeg](./ffmpeg) with its [dependencies](./third-party/) from source.     
+Several purposes may be achieved in this project:      
+- Generate popular **cross-platform executable binaries** for generic usage, including `ffmpeg, ffplay, ffprobe, srt-*, rtmpdump`, etc;    
+- Generate popular **cross-platform libraries** for developping upon them, mostly `libav*`;      
+- Easy to debug `ffmpeg` source codes from `gdb/lldb`, which can be very helpful to understand its details;      
+
 
 ```bash
-git submodule update --init
+git submodule update --init       
 ```
 
 ## Docs

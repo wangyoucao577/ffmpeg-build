@@ -10,11 +10,11 @@ Build [ffmpeg](../ffmpeg/) with its [dependencies](../third-party/) from source,
 - [meson](https://mesonbuild.com/)
 - [yasm](https://yasm.tortall.net/)
 - [nasm](https://www.nasm.us/)
-- [openssl](https://www.openssl.org/)
-- [Bear](https://github.com/rizsotto/Bear) for debugging via [vscode](https://code.visualstudio.com/)/[clangd](https://clangd.llvm.org/)
+- [conan](https://conan.io/), optionally for `ios/android`
+- [Bear](https://github.com/rizsotto/Bear), optionally for debugging via [vscode](https://code.visualstudio.com/)/[clangd](https://clangd.llvm.org/)
 
 ## Linux
-Refer to [linux-debian10.dockerfile](../buildtools/docker/linux-debian10.dockerfile) to install prerequisites.      
+Refer to [linux-debian10.dockerfile](../buildtools/docker/linux-debian10.dockerfile)/[linux-debian11.dockerfile](../buildtools/docker/linux-debian11.dockerfile) to install prerequisites.      
 
 ```bash
 # (optional) enable debug
