@@ -1,0 +1,33 @@
+name: Build - linux cuda
+on: 
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+    paths-ignore:
+      - 'buildtools/docker/**'
+      - 'docs/**'
+      - '.vscode/**'
+      - '.devcontainer/**'
+
+jobs:
+  build-linux-cuda:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-cuda
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+          
+      - name: Build
+        run: |
+          buildtools/scripts/build.sh
+          tree build
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ffmpeg-bin-cuda
+          path: build/bin/

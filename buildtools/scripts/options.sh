@@ -56,7 +56,7 @@ if [[ ${PREFERRED_SSL} == openssl ]]; then
 fi
 
 # NVIDIA_GPU_AVAILABLE, hardware and drivers/sdk relevant
-if [ -d "/usr/local/cuda" ] && command -v nvidia-smi &> /dev/null ; then
+if [ -d "/usr/local/cuda" ] && command -v nvcc &> /dev/null ; then
     # echo "Nvidia gpu available"
 
     NVIDIA_GPU_AVAILABLE=true
