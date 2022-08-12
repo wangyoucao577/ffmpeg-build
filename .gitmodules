@@ -49,3 +49,6 @@
 [submodule "third-party/libxml2"]
 	path = third-party/libxml2
 	url = https://github.com/GNOME/libxml2.git
+[submodule "third-party/fribidi"]
+	path = third-party/fribidi
+	url = https://github.com/fribidi/fribidi.git
