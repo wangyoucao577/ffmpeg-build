@@ -17,15 +17,11 @@ cd ${PROJECT_ROOT_PATH}/third-party/fribidi
 
 # build
 set -x
-./autogen.sh
+rm -rf fribidi-1.0.12
+tar -xf fribidi-1.0.12.tar.xz
+cd fribidi-1.0.12
 ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared 
-
-# https://github.com/fribidi/fribidi/issues/8
-make ${MAKE_PARALLEL} -C lib install
-
-rm -f doc/Makefile
-rm -f test/Makefile
-rm -f test/unicode-conformance/Makefile
+make ${MAKE_PARALLEL} install
 set +x
 
 # go back
