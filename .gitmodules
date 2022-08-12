@@ -40,3 +40,6 @@
 [submodule "third-party/boringssl"]
 	path = third-party/boringssl
 	url = https://github.com/google/boringssl.git
+[submodule "third-party/fontconfig"]
+	path = third-party/fontconfig
+	url = https://gitlab.freedesktop.org/fontconfig/fontconfig.git
