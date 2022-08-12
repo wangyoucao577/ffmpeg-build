@@ -18,7 +18,7 @@ cd ${PROJECT_ROOT_PATH}/third-party/freetype
 # build
 set -x
 ./autogen.sh
-./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared
+./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared --enable-freetype-config
 make ${MAKE_PARALLEL} && make install
 set +x
 
