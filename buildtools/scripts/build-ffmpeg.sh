@@ -52,6 +52,7 @@ set -x
   --enable-libvmaf \
   --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom \
   --enable-libopus --enable-libfdk-aac \
+  --enable-libfreetype --enable-libfontconfig --enable-libfribidi \
   --enable-sdl \
   --enable-libsrt \
   --enable-openssl \
