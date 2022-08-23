@@ -22,6 +22,8 @@ ${CURRENT_DIR_PATH}/build-libxml2.sh
 ${CURRENT_DIR_PATH}/build-freetype.sh
 ${CURRENT_DIR_PATH}/build-fontconfig.sh
 ${CURRENT_DIR_PATH}/build-fribidi.sh
+${CURRENT_DIR_PATH}/build-harfbuzz.sh
+${CURRENT_DIR_PATH}/build-libass.sh
 ${CURRENT_DIR_PATH}/build-openssl.sh
 ${CURRENT_DIR_PATH}/build-boringssl.sh
 ${CURRENT_DIR_PATH}/build-x264.sh
