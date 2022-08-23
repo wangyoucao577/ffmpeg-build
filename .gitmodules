@@ -40,12 +40,6 @@
 [submodule "third-party/boringssl"]
 	path = third-party/boringssl
 	url = https://github.com/google/boringssl.git
-[submodule "third-party/fontconfig"]
-	path = third-party/fontconfig
-	url = https://gitlab.freedesktop.org/fontconfig/fontconfig.git
-[submodule "third-party/freetype"]
-	path = third-party/freetype
-	url = https://github.com/freetype/freetype.git
 [submodule "third-party/libxml2"]
 	path = third-party/libxml2
 	url = https://github.com/GNOME/libxml2.git
