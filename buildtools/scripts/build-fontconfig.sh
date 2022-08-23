@@ -17,9 +17,11 @@ cd ${PROJECT_ROOT_PATH}/third-party/fontconfig
 
 # build
 set -x
-    ./autogen.sh --prefix=${PROJECT_ROOT_PATH}/build
-    ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared --enable-libxml2 --disable-docs
-    make ${MAKE_PARALLEL} && make install
+rm -rf fontconfig-2.12.6
+tar -zxf fontconfig-2.12.6.tar.gz
+cd fontconfig-2.12.6
+./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared --enable-libxml2 --disable-docs
+make ${MAKE_PARALLEL} && make install
 set +x
 
 # go back
