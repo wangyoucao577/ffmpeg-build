@@ -45,5 +45,5 @@ jobs:
           ./build/bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a libfdk_aac out_hevc.mp4
           ./build/bin/ffmpeg -y -i out_hevc.mp4 -c copy out_hevc.flv
           ./build/bin/ffmpeg -y -i out_hevc.flv -c copy out_hevc2.mp4
-          ./build/bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf drawtext=text="hello world" -f null -
+          ./build/bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf drawtext="text='hello world':fontfile=./build/bin/FreeSans.ttf" -f null -
           ./build/bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf subtitles=./tests/sintel_en.srt -f null -

@@ -22,6 +22,10 @@ tar -zxf fontconfig-2.12.6.tar.gz
 cd fontconfig-2.12.6
 ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared --enable-libxml2 --disable-docs
 make ${MAKE_PARALLEL} && make install
+
+# package sample fonts with bin
+cp -r ${PROJECT_ROOT_PATH}/tests/*.ttf ${PROJECT_ROOT_PATH}/build/bin/
+
 set +x
 
 # go back
