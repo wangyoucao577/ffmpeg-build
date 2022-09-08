@@ -43,3 +43,6 @@
 [submodule "third-party/libxml2"]
 	path = third-party/libxml2
 	url = https://github.com/GNOME/libxml2.git
+[submodule "third-party/mbedtls"]
+	path = third-party/mbedtls
+	url = https://github.com/Mbed-TLS/mbedtls.git
