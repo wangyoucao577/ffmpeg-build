@@ -32,6 +32,12 @@ if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
     FFMPEG_WITH_NV_PARAMS=(--enable-cuda-nvcc --enable-nvenc --enable-nvdec --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --nvccflags="-gencode arch=compute_75,code=sm_75 -O2")
 fi
 
+if [[ ${PREFERRED_SSL} == "mbedtls" ]]; then
+    FFMPEG_WITH_SSL_PARAMS=(--enable-mbedtls --extra-cflags=-I${PROJECT_ROOT_PATH}/build/include --extra-ldflags=-L${PROJECT_ROOT_PATH}/build/lib)
+else
+    FFMPEG_WITH_SSL_PARAMS=(--enable-openssl)
+fi
+
 # enter build folder
 cd ${PROJECT_ROOT_PATH}/ffmpeg
 
@@ -40,7 +46,7 @@ cd ${PROJECT_ROOT_PATH}/ffmpeg
 # 2. static linking executable: --extra-ldexeflags="-static"
 #    by this option, `ldd build/bin/ffmpeg` will shows `not a dynamic executable`
 #    after add this option, openssl need to be disabled since it requires `-ldl` for `dlopen` functions.
-#    `--enable-gnutls` could be an anlternative in such case.    
+#    `--enable-mbedtls` could be an anlternative in such case.    
 #    other options that requires dynamic linking are also need to be removed, such as `--enable-libnpp` and so on. 
 #    one more thing is that it may only useful for linux, because macosx doesn't provide static linkable libc, 
 #    cygwin/msys2/mingw env also requies to link their DLL.    
@@ -55,8 +61,7 @@ set -x
   --enable-libfreetype --enable-libfontconfig --enable-libfribidi --enable-libass \
   --enable-sdl \
   --enable-libsrt \
-  --enable-openssl \
-  ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
+  ${FFMPEG_STATIC_SHARED_PARAMS} "${FFMPEG_WITH_SSL_PARAMS[@]}" "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 make -i clean
 ${BEAR_COMMAND} make ${BEAR_MAKE_PARALLEL} build
 set +x

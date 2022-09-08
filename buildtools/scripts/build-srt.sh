@@ -18,6 +18,10 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 
 source ${CURRENT_DIR_PATH}/options.sh
 
+if [[ ${PREFERRED_SSL} == "mbedtls" ]]; then
+    ENC_LIB_EXTRA_PARAMS=(-DUSE_ENCLIB=mbedtls)
+fi
+
 # enter build foler
 cd ${PROJECT_ROOT_PATH}/third-party/srt
 
@@ -28,7 +32,7 @@ cmake .. "${PREFERRED_CMAKE_GERERATOR}" \
     -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build \
     -DENABLE_STATIC=ON -DENABLE_SHARED=OFF -DOPENSSL_USE_STATIC_LIBS=ON \
     -DCMAKE_BUILD_TYPE=${FFMPEG_BUILD_TYPE_INTERNAL} \
-    ${PLATFORM_SPECIFIC_PARAMS}
+    ${PLATFORM_SPECIFIC_PARAMS} ${ENC_LIB_EXTRA_PARAMS}
 cmake --build . ${MAKE_PARALLEL} && cmake --install .
 set +x
 

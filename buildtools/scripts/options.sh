@@ -6,7 +6,8 @@ shopt -s nocasematch
 # preferred ssl
 # PREFERRED_SSL=system
 # PREFERRED_SSL=boringssl
-PREFERRED_SSL=openssl
+# PREFERRED_SSL=openssl
+PREFERRED_SSL=mbedtls
 
 # preferred cmake generator
 # PREFERRED_CMAKE_GERERATOR=
