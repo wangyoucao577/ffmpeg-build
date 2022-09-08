@@ -26,6 +26,7 @@ ${CURRENT_DIR_PATH}/build-harfbuzz.sh
 ${CURRENT_DIR_PATH}/build-libass.sh
 ${CURRENT_DIR_PATH}/build-openssl.sh
 ${CURRENT_DIR_PATH}/build-boringssl.sh
+${CURRENT_DIR_PATH}/build-mbedtls.sh
 ${CURRENT_DIR_PATH}/build-x264.sh
 ${CURRENT_DIR_PATH}/build-x265.sh
 ${CURRENT_DIR_PATH}/build-svtav1.sh
