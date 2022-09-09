@@ -33,7 +33,7 @@ if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
 fi
 
 if [[ ${PREFERRED_SSL} == "mbedtls" ]]; then
-    FFMPEG_WITH_SSL_PARAMS=(--enable-mbedtls --extra-cflags=-I${PROJECT_ROOT_PATH}/build/include --extra-ldflags=-L${PROJECT_ROOT_PATH}/build/lib)
+    FFMPEG_WITH_SSL_PARAMS=(--enable-mbedtls --extra-ldflags=-L${PROJECT_ROOT_PATH}/build/lib)
 else
     FFMPEG_WITH_SSL_PARAMS=(--enable-openssl)
 fi
