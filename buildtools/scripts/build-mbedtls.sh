@@ -21,7 +21,12 @@ cd ${PROJECT_ROOT_PATH}/third-party/mbedtls
 set -x
 rm -rf ./build && mkdir -p build && cd build
 cmake .. "${PREFERRED_CMAKE_GERERATOR}" -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build -DENABLE_PROGRAMS=OFF -DENABLE_TESTING=OFF
-cmake --build . ${MAKE_PARALLEL} && cmake --install .
+cmake --build . ${MAKE_PARALLEL}
+
+if [[ ${PREFERRED_SSL} == mbedtls ]]; then
+    cmake --install . 
+fi
+
 set +x
 
 # go back
