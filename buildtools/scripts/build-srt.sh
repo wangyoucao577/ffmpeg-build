@@ -19,7 +19,10 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 if [[ ${PREFERRED_SSL} == "mbedtls" ]]; then
-    ENC_LIB_EXTRA_PARAMS=(-DUSE_ENCLIB=mbedtls)
+    # workaround to solve the following issues: correct .pc to avoid full path libmbedtls.a, which will cause ffmepg with libsrt(with libmbedtls) check fail
+    ENC_LIB_EXTRA_PARAMS=(-DUSE_ENCLIB=mbedtls -DSSL_LIBRARY_DIRS=${PROJECT_ROOT_PATH}/build/lib -DCMAKE_EXE_LINKER_FLAGS=-L${PROJECT_ROOT_PATH}/build/lib -DSSL_INCLUDE_DIRS=${PROJECT_ROOT_PATH}/build/include)
+else
+    ENC_LIB_EXTRA_PARAMS=(-DOPENSSL_USE_STATIC_LIBS=ON -DUSE_OPENSSL_PC=ON)
 fi
 
 # enter build foler
@@ -30,9 +33,9 @@ set -x
 rm -rf ./_build && mkdir -p _build && cd _build
 cmake .. "${PREFERRED_CMAKE_GERERATOR}" \
     -DCMAKE_INSTALL_PREFIX:PATH=${PROJECT_ROOT_PATH}/build \
-    -DENABLE_STATIC=ON -DENABLE_SHARED=OFF -DOPENSSL_USE_STATIC_LIBS=ON \
+    -DENABLE_STATIC=ON -DENABLE_SHARED=OFF \
     -DCMAKE_BUILD_TYPE=${FFMPEG_BUILD_TYPE_INTERNAL} \
-    ${PLATFORM_SPECIFIC_PARAMS} ${ENC_LIB_EXTRA_PARAMS}
+    ${PLATFORM_SPECIFIC_PARAMS} "${ENC_LIB_EXTRA_PARAMS[@]}"
 cmake --build . ${MAKE_PARALLEL} && cmake --install .
 set +x
 
