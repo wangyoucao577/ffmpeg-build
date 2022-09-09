@@ -20,9 +20,16 @@ cd ${PROJECT_ROOT_PATH}/third-party/x265/source
 set -x
 rm -rf ./build && mkdir -p build && cd build
 cmake .. "${PREFERRED_CMAKE_GERERATOR}" \
-    -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build -DENABLE_SHARED=off 
+    -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build \
+    -DENABLE_SHARED=off -DENABLE_CLI=OFF -DENABLE_LIBNUMA=OFF -DCMAKE_ASM_NASM_FLAGS=-w-macro-params-legacy
 cmake --build . ${MAKE_PARALLEL} && cmake --install . 
 cd .. && rm -rf ./build
+
+if [[ "$OSTYPE" == "linux"* ]]; then
+    # workaround to be able to fully static linking
+    sed -i -e "s/\-lgcc_s//g" ${PROJECT_ROOT_PATH}/build/lib/pkgconfig/x265.pc
+fi
+
 set +x
 
 # go back
