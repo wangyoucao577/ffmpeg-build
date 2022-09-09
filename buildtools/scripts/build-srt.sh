@@ -19,8 +19,9 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 source ${CURRENT_DIR_PATH}/options.sh
 
 if [[ ${PREFERRED_SSL} == "mbedtls" ]]; then
-    # workaround to solve the following issues: correct .pc to avoid full path libmbedtls.a, which will cause ffmepg with libsrt(with libmbedtls) check fail
-    ENC_LIB_EXTRA_PARAMS=(-DUSE_ENCLIB=mbedtls -DSSL_LIBRARY_DIRS=${PROJECT_ROOT_PATH}/build/lib -DCMAKE_EXE_LINKER_FLAGS=-L${PROJECT_ROOT_PATH}/build/lib -DSSL_INCLUDE_DIRS=${PROJECT_ROOT_PATH}/build/include)
+    # -DUSE_STATIC_LIBSTDCXX=ON allows fully static linking
+    # later args is the workaround to solve the following issues: correct .pc to avoid full path libmbedtls.a, which will cause ffmepg with libsrt(with libmbedtls) check fail
+    ENC_LIB_EXTRA_PARAMS=(-DUSE_ENCLIB=mbedtls -DENABLE_CXX_DEPS=OFF -DUSE_STATIC_LIBSTDCXX=ON -DSSL_LIBRARY_DIRS=${PROJECT_ROOT_PATH}/build/lib -DCMAKE_EXE_LINKER_FLAGS=-L${PROJECT_ROOT_PATH}/build/lib -DSSL_INCLUDE_DIRS=${PROJECT_ROOT_PATH}/build/include)
 else
     ENC_LIB_EXTRA_PARAMS=(-DOPENSSL_USE_STATIC_LIBS=ON -DUSE_OPENSSL_PC=ON)
 fi
