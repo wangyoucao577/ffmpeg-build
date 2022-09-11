@@ -18,7 +18,7 @@ cd ${PROJECT_ROOT_PATH}/third-party/soxr
 
 # build
 set -x
-rm -rf ./build && mkdir -p build && cd build
+rm -rf ./Release && mkdir -p Release && cd Release
 cmake .. "${PREFERRED_CMAKE_GERERATOR}" \
     -DCMAKE_INSTALL_PREFIX=${PROJECT_ROOT_PATH}/build \
     -Wno-dev -DCMAKE_BUILD_TYPE=Release \
