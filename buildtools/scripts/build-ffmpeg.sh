@@ -66,7 +66,7 @@ set -x
   --extra-ldflags="${MSYS_BUILD_EXTRA_LDFLAGS}" --extra-libs="-pthread" \
   --enable-libvmaf \
   --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom \
-  --enable-libopus --enable-libfdk-aac --enable-libsoxr \
+  --enable-libopus --enable-libfdk-aac --enable-libsoxr --extra-libs="-fopenmp" \
   --enable-libfreetype --enable-libfontconfig --enable-libfribidi --enable-libass \
   --enable-sdl \
   --enable-libsrt \
