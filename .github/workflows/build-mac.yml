@@ -22,7 +22,7 @@ jobs:
 
       - name: Install tools and dependencies
         run: |
-          brew install tree bear automake meson yasm nasm  
+          brew install tree bear automake meson yasm nasm libomp
           # already present: autoconf, go, openssl
 
       - name: Build
