@@ -22,7 +22,7 @@ jobs:
 
       - name: Install tools and dependencies
         run: |
-          brew install tree bear automake meson yasm nasm libomp
+          brew install tree bear automake meson yasm nasm
           # already present: autoconf, go, openssl
 
       - name: Build
@@ -34,7 +34,7 @@ jobs:
         with:
           name: ffmpeg-bin
           path: build/bin/
-          
+
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
