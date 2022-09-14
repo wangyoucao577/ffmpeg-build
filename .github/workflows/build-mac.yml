@@ -35,6 +35,11 @@ jobs:
           name: ffmpeg-bin
           path: build/bin/
 
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          path: ffmpeg/ffbuild/config.log
+
       - name: Test
         run: |
           set -x
