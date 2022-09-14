@@ -32,6 +32,12 @@ jobs:
           name: ffmpeg-bin-debian10
           path: build/bin/
 
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-debian10
+          path: ffmpeg/ffbuild/config.log
+
   test-debian10:
     needs: build-debian10
     runs-on: ubuntu-latest
@@ -79,6 +85,12 @@ jobs:
         with:
           name: ffmpeg-bin-debian11-${{ matrix.build_type }}
           path: build/bin/
+          
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-${{ matrix.build_type }}
+          path: ffmpeg/ffbuild/config.log
 
   test-debian11:
     strategy:

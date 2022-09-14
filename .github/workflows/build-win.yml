@@ -60,6 +60,12 @@ jobs:
           name: ffmpeg-bin-${{matrix.sys}}
           path: build/bin/
 
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-${{ matrix.sys }}
+          path: ffmpeg/ffbuild/config.log
+
   test:
     needs: build
     runs-on: windows-latest

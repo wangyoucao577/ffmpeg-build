@@ -31,3 +31,9 @@ jobs:
         with:
           name: ffmpeg-bin-cuda
           path: build/bin/
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-cuda
+          path: ffmpeg/ffbuild/config.log
