@@ -1,16 +1,12 @@
 #!/bin/bash -e
 
 FFMPEG_STATIC_SHARED_PARAMS="--enable-static --disable-shared"
-FFMPEG_WITH_OPENMP="--extra-libs=-fopenmp"    # required by libsoxr
 
 # echo "OSTYPE: $OSTYPE"
 if [[ "$OSTYPE" == "darwin"* ]]; then
     realpath() { # there's no realpath command on macosx 
         [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
     }
-
-    # apple clang doesn't not support `-fopenmp`
-    FFMPEG_WITH_OPENMP=
 elif [[ "$OSTYPE" == msys* ]]; then
     # build shared on windows
     FFMPEG_STATIC_SHARED_PARAMS="--disable-static --enable-shared"
@@ -70,7 +66,7 @@ set -x
   --extra-ldflags="${MSYS_BUILD_EXTRA_LDFLAGS}" --extra-libs="-pthread" \
   --enable-libvmaf \
   --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom \
-  --enable-libopus --enable-libfdk-aac --enable-libsoxr ${FFMPEG_WITH_OPENMP} \
+  --enable-libopus --enable-libfdk-aac --enable-libsoxr \
   --enable-libfreetype --enable-libfontconfig --enable-libfribidi --enable-libass \
   --enable-sdl \
   --enable-libsrt \
