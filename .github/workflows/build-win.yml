@@ -60,6 +60,12 @@ jobs:
           name: ffmpeg-bin-${{matrix.sys}}
           path: build/bin/
 
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-${{ matrix.sys }}
+          path: ffmpeg/ffbuild/config.log
+
   test:
     needs: build
     runs-on: windows-latest
@@ -88,3 +94,4 @@ jobs:
           ./ffmpeg-bin/ffmpeg -y -i out_hevc.flv -c copy out_hevc2.mp4
           ./ffmpeg-bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf drawtext="text='hello world':fontfile=./ffmpeg-bin/FreeSans.ttf" -f null -
           ./ffmpeg-bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf subtitles=./tests/sintel_en.srt -f null -
+          ./ffmpeg-bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vn -af aresample=resampler=soxr -ar 8000 out.aac

@@ -22,7 +22,7 @@ jobs:
 
       - name: Install tools and dependencies
         run: |
-          brew install tree bear automake meson yasm nasm  
+          brew install tree bear automake meson yasm nasm
           # already present: autoconf, go, openssl
 
       - name: Build
@@ -34,6 +34,12 @@ jobs:
         with:
           name: ffmpeg-bin
           path: build/bin/
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs
+          path: ffmpeg/ffbuild/config.log
 
       - name: Test
         run: |
@@ -47,3 +53,4 @@ jobs:
           ./build/bin/ffmpeg -y -i out_hevc.flv -c copy out_hevc2.mp4
           ./build/bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf drawtext="text='hello world':fontfile=./build/bin/FreeSans.ttf" -f null -
           ./build/bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf subtitles=./tests/sintel_en.srt -f null -
+          ./build/bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vn -af aresample=resampler=soxr -ar 8000 out.aac

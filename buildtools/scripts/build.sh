@@ -33,6 +33,7 @@ ${CURRENT_DIR_PATH}/build-svtav1.sh
 ${CURRENT_DIR_PATH}/build-aom.sh
 ${CURRENT_DIR_PATH}/build-opus.sh
 ${CURRENT_DIR_PATH}/build-fdk-aac.sh
+${CURRENT_DIR_PATH}/build-soxr.sh
 ${CURRENT_DIR_PATH}/build-vmaf.sh
 ${CURRENT_DIR_PATH}/build-sdl.sh
 ${CURRENT_DIR_PATH}/build-srt.sh

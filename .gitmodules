@@ -46,3 +46,6 @@
 [submodule "third-party/mbedtls"]
 	path = third-party/mbedtls
 	url = https://github.com/Mbed-TLS/mbedtls.git
+[submodule "third-party/soxr"]
+	path = third-party/soxr
+	url = https://github.com/chirlu/soxr.git
