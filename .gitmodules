@@ -49,3 +49,6 @@
 [submodule "third-party/soxr"]
 	path = third-party/soxr
 	url = https://github.com/chirlu/soxr.git
+[submodule "third-party/dav1d"]
+	path = third-party/dav1d
+	url = https://github.com/videolan/dav1d.git
