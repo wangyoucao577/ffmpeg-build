@@ -31,6 +31,7 @@ ${CURRENT_DIR_PATH}/build-x264.sh
 ${CURRENT_DIR_PATH}/build-x265.sh
 ${CURRENT_DIR_PATH}/build-svtav1.sh
 ${CURRENT_DIR_PATH}/build-aom.sh
+${CURRENT_DIR_PATH}/build-dav1d.sh
 ${CURRENT_DIR_PATH}/build-opus.sh
 ${CURRENT_DIR_PATH}/build-fdk-aac.sh
 ${CURRENT_DIR_PATH}/build-soxr.sh
