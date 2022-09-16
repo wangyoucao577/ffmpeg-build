@@ -65,7 +65,7 @@ set -x
   --enable-pic --pkg-config-flags="--static" --ld=g++ \
   --extra-ldflags="${MSYS_BUILD_EXTRA_LDFLAGS}" --extra-libs="-pthread" \
   --enable-libvmaf \
-  --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom \
+  --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom --enable-libdav1d \
   --enable-libopus --enable-libfdk-aac --enable-libsoxr \
   --enable-libfreetype --enable-libfontconfig --enable-libfribidi --enable-libass \
   --enable-sdl \
