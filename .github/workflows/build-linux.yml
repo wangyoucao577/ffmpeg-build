@@ -50,20 +50,8 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Test
         run: |
-          FFMPEG_BIN_PATH=ffmpeg-bin-debian10
-          tree ${FFMPEG_BIN_PATH}
-          chmod +x ${FFMPEG_BIN_PATH}/*
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out_av1.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -c:v libdav1d -i ./out_av1.mp4 -f null -
-          # ./${FFMPEG_BIN_PATH}/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libaom-av1 -c:a copy out.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a libopus out.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i out.mp4 -i ./tests/small_bunny_1080p_60fps.mp4 -lavfi "libvmaf=log_fmt=xml:log_path=/dev/stdout:model_path=./${FFMPEG_BIN_PATH}/vmaf_v0.6.1.json" -f null -
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a libfdk_aac out_hevc.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i out_hevc.mp4 -c copy out_hevc.flv
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i out_hevc.flv -c copy out_hevc2.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf drawtext="text='hello world':fontfile=./${FFMPEG_BIN_PATH}/FreeSans.ttf" -f null -
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf subtitles=./tests/sintel_en.srt -f null -
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vn -af aresample=resampler=soxr -ar 8000 out.aac
+          export FFMPEG_BIN_PATH=ffmpeg-bin-debian10
+          ./tests/acceptance-test.sh
 
   build-debian11:
     strategy:
@@ -109,17 +97,5 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Test
         run: |
-          FFMPEG_BIN_PATH=ffmpeg-bin-debian11-${{ matrix.build_type }}
-          tree ${FFMPEG_BIN_PATH}
-          chmod +x ${FFMPEG_BIN_PATH}/*
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out_av1.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -c:v libdav1d -i ./out_av1.mp4 -f null -
-          # ./${FFMPEG_BIN_PATH}/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libaom-av1 -c:a copy out.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a libopus out.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i out.mp4 -i ./tests/small_bunny_1080p_60fps.mp4 -lavfi "libvmaf=log_fmt=xml:log_path=/dev/stdout:model_path=./${FFMPEG_BIN_PATH}/vmaf_v0.6.1.json" -f null -
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a libfdk_aac out_hevc.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i out_hevc.mp4 -c copy out_hevc.flv
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i out_hevc.flv -c copy out_hevc2.mp4
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf drawtext="text='hello world':fontfile=./${FFMPEG_BIN_PATH}/FreeSans.ttf" -f null -
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf subtitles=./tests/sintel_en.srt -f null -
-          ./${FFMPEG_BIN_PATH}/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vn -af aresample=resampler=soxr -ar 8000 out.aac
+          export FFMPEG_BIN_PATH=ffmpeg-bin-debian11-${{ matrix.build_type }}
+          ./tests/acceptance-test.sh
