@@ -10,6 +10,7 @@ on:
       - 'docs/**'
       - '.vscode/**'
       - '.devcontainer/**'
+      - '**.md'
 
 jobs:
   build-debian10:

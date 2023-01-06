@@ -11,6 +11,7 @@ on:
       - 'docs/**'
       - '.vscode/**'
       - '.devcontainer/**'
+      - '**.md'
 
 env:
   CONAN_PRINT_RUN_COMMANDS: 1
