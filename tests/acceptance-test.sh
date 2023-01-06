@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-FFMPEG_BIN_PATH=${FFMPEG_BIN_PATH:-"build/bin/ffmpeg"}
+FFMPEG_BIN_PATH=${FFMPEG_BIN_PATH:-"build/bin"}
 
 
 # echo "OSTYPE: $OSTYPE"
