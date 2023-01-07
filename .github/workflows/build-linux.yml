@@ -99,3 +99,25 @@ jobs:
         run: |
           export FFMPEG_BIN_PATH=ffmpeg-bin-debian11-${{ matrix.build_type }}
           ./tests/acceptance-test.sh
+
+  build-then-run-fate:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+          
+      - name: Build
+        run: |
+          export FFMPEG_ENABLE_FATE_TESTS=true
+          buildtools/scripts/build.sh
+          tree build
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-fate
+          path: ffmpeg/ffbuild/config.log

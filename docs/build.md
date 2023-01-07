@@ -48,6 +48,16 @@ export FFMPEG_BUILD_TYPE=Debug
 ./buildtools/scripts/build.sh
 ```
 
+## ENV Options
+
+`export XXX=YYY` before run `./buildtools/scripts/build.sh` to leverage following env options.          
+
+
+| name | available values | default value | comments |
+| - | - | - | - |
+| `FFMPEG_BUILD_TYPE` | `Release`, `Debug` | `Release` | build type for ffmpeg | 
+| `FFMPEG_ENABLE_FATE_TESTS` | `true`, `false` | `false` | whether enable ffmpeg fate tests |
+
 ## References
 - [CompilationGuide](https://trac.ffmpeg.org/wiki/CompilationGuide)
 - [Platform Specific Information](https://www.ffmpeg.org/platform.html)

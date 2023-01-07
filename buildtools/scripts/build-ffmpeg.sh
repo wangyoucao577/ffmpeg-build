@@ -74,8 +74,16 @@ set -x
   "${FFMPEG_WITH_SSL_PARAMS[@]}" "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 make -i clean
 ${BEAR_COMMAND} make ${BEAR_MAKE_PARALLEL} build
-set +x
 make install
+
+# fate https://ffmpeg.org/fate.html
+if [[ ${FFMPEG_ENABLE_FATE_TESTS} =~ "true" ]]; then
+    make fate-list
+    make fate-rsync SAMPLES=${PROJECT_ROOT_PATH}/ffmpeg-fate-suite/
+    make fate       SAMPLES=${PROJECT_ROOT_PATH}/ffmpeg-fate-suite/ V=2
+fi
+
+set +x
 
 cd ${PROJECT_ROOT_PATH}
 
