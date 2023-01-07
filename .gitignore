@@ -53,3 +53,5 @@ build
 out*
 
 .DS_Store
+
+ffmpeg-fate-suite
