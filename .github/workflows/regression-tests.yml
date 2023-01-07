@@ -1,0 +1,99 @@
+name: Regression tests
+on: 
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+    paths-ignore:
+      - 'buildtools/docker/**'
+      - 'docs/**'
+      - '.vscode/**'
+      - '.devcontainer/**'
+      - '**.md'
+
+jobs:
+  ffmpeg-fate:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+          
+      - name: Build and run ffmpeg fate suites
+        run: |
+          export FFMPEG_ENABLE_FATE_TESTS=true
+          buildtools/scripts/build.sh
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-fate
+          path: ffmpeg/ffbuild/config.log
+
+  ffmpeg-coverage:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+          
+      - name: Build with gcov and run ffmpeg fate suites
+        run: |
+          export FFMPEG_BUILD_TYPE=Debug
+          export FFMPEG_ENABLE_FATE_TESTS=true
+          export FFMPEG_TOOLCHAIN_COVERAGE=true
+          buildtools/scripts/build.sh
+
+      - name: Run acceptance tests
+        run: |
+          cp build/bin/vmaf*.json ffmpeg/
+          cd ffmpeg
+          export FFMPEG_BIN_PATH=.
+          ../tests/acceptance-test.sh
+
+      - name: Generate coverage report
+        run: |
+          cd ffmpeg
+          make lcov
+          ls -lh lcov/
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ffmpeg-coverage
+          path: ffmpeg/lcov/
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-coverage
+          path: ffmpeg/ffbuild/config.log
+
+  ffmpeg-valgrind-memcheck:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+          
+      - name: Build with gcov and run ffmpeg fate suites
+        run: |
+          export FFMPEG_BUILD_TYPE=Debug
+          export FFMPEG_ENABLE_FATE_TESTS=true
+          export FFMPEG_TOOLCHAIN_VALGRIND_MEMCHECK=true
+          buildtools/scripts/build.sh
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-valgrind-memcheck
+          path: ffmpeg/ffbuild/config.log
