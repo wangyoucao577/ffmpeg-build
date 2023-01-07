@@ -80,7 +80,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: ffbuild-logs-${{ matrix.build_type }}
+          name: ffbuild-logs-debian11-${{ matrix.build_type }}
           path: ffmpeg/ffbuild/config.log
 
   test-debian11:
@@ -98,6 +98,53 @@ jobs:
       - name: Test
         run: |
           export FFMPEG_BIN_PATH=ffmpeg-bin-debian11-${{ matrix.build_type }}
+          ./tests/acceptance-test.sh
+
+  build-ubuntu2204:
+    strategy:
+      matrix:
+        build_type: [release]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-ubuntu2204
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+          
+      - name: Build
+        run: |
+          export FFMPEG_BUILD_TYPE=${{ matrix.build_type }}
+          buildtools/scripts/build.sh
+          tree build
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ffmpeg-bin-ubuntu2204-${{ matrix.build_type }}
+          path: build/bin/
+          
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ffbuild-logs-ubuntu2204-${{ matrix.build_type }}
+          path: ffmpeg/ffbuild/config.log
+
+  test-ubuntu2204:
+    strategy:
+      matrix:
+        build_type: [release]
+    needs: build-debian11
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wangyoucao577/ffmpeg-build/linux-ubuntu2204
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+      - name: Test
+        run: |
+          export FFMPEG_BIN_PATH=ffmpeg-bin-ubuntu2204-${{ matrix.build_type }}
           ./tests/acceptance-test.sh
 
   build-then-run-fate:
