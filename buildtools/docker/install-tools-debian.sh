@@ -4,7 +4,7 @@
 apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   build-essential pkg-config automake libtool python3-pip gperf \
   yasm nasm libssl-dev \
-  vim curl wget git jq zip unzip tree stow \
+  vim curl wget rsync git jq zip unzip tree stow \
   lsb-release software-properties-common gnupg2 autoconf \
   locales-all ca-certificates \
   && rm -rf /var/lib/apt/lists/*
