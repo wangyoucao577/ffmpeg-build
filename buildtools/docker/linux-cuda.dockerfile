@@ -23,7 +23,7 @@ RUN wget --progress=dot:mega --no-check-certificate https://developer.download.n
   add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" && \
   apt-get update && \
   apt-get install --no-install-recommends -y \
-    tensorrt-libs=8.5.2-1+cuda11.8 tensorrt-dev=8.5.2-1+cuda11.8 && \
+    tensorrt-libs=8.5.2.2-1+cuda11.8 tensorrt-dev=8.5.2.2-1+cuda11.8 && \
   rm -rf /var/lib/apt/lists/*
 
 # for shown on runtime
