@@ -57,6 +57,8 @@ export FFMPEG_BUILD_TYPE=Debug
 | - | - | - | - |
 | `FFMPEG_BUILD_TYPE` | `Release`, `Debug` | `Release` | build type for ffmpeg | 
 | `FFMPEG_ENABLE_FATE_TESTS` | `true`, `false` | `false` | whether enable ffmpeg fate tests |
+| `FFMPEG_TOOLCHAIN_COVERAGE` | `true`, `false` | `false` | configure `ffmpeg` with `--toolchain=gcov`, see more in [9.2 Visualizing Test Coverage](https://ffmpeg.org/developer.html#Visualizing-Test-Coverage). |
+| `FFMPEG_TOOLCHAIN_VALGRIND_MEMCHECK` | `true`, `false` | `false` | configure `ffmpeg` with `--toolchain=valgrind-memcheck`, see more in [9.3 Using Valgrind](https://ffmpeg.org/developer.html#Using-Valgrind). |
 
 ## References
 - [CompilationGuide](https://trac.ffmpeg.org/wiki/CompilationGuide)
