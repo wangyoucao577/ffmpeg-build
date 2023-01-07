@@ -134,7 +134,7 @@ jobs:
     strategy:
       matrix:
         build_type: [release]
-    needs: build-debian11
+    needs: build-ubuntu2204
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/wangyoucao577/ffmpeg-build/linux-ubuntu2204
