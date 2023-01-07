@@ -10,7 +10,8 @@ on:
       - 'docs/**'
       - '.vscode/**'
       - '.devcontainer/**'
-
+      - '**.md'
+      
 jobs:
   build:
     runs-on: windows-latest
@@ -85,14 +86,4 @@ jobs:
 
       - name: Test
         run: |
-          ./ffmpeg-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libsvtav1 -c:a copy out_av1.mp4
-          ./ffmpeg-bin/ffmpeg -y -c:v libdav1d -i ./out_av1.mp4 -f null -
-          # ./ffmpeg-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libaom-av1 -c:a copy out.mp4
-          ./ffmpeg-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx264 -c:a libopus out.mp4
-          # ./ffmpeg-bin/ffmpeg -y -i out.mp4 -i ./tests/small_bunny_1080p_60fps.mp4 -lavfi "libvmaf=log_fmt=xml:log_path=/dev/stdout:model_path=./build/bin/vmaf_v0.6.1.json" -f null -
-          ./ffmpeg-bin/ffmpeg -y -threads 1 -i ./tests/small_bunny_1080p_60fps.mp4 -c:v libx265 -c:a libfdk_aac out_hevc.mp4
-          ./ffmpeg-bin/ffmpeg -y -i out_hevc.mp4 -c copy out_hevc.flv
-          ./ffmpeg-bin/ffmpeg -y -i out_hevc.flv -c copy out_hevc2.mp4
-          ./ffmpeg-bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf drawtext="text='hello world':fontfile=./ffmpeg-bin/FreeSans.ttf" -f null -
-          ./ffmpeg-bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vf subtitles=./tests/sintel_en.srt -f null -
-          ./ffmpeg-bin/ffmpeg -y -i ./tests/small_bunny_1080p_60fps.mp4 -vn -af aresample=resampler=soxr -ar 8000 out.aac
+          ./tests/acceptance-test.bat
