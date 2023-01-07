@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.2.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
 
 # nvidia-container-runtime envs, see https://github.com/NVIDIA/nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
@@ -23,8 +23,7 @@ RUN wget --progress=dot:mega --no-check-certificate https://developer.download.n
   add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" && \
   apt-get update && \
   apt-get install --no-install-recommends -y \
-    libcudnn8=8.1.1.33-1+cuda11.2 libcudnn8-dev=8.1.1.33-1+cuda11.2 \
-    tensorrt-libs=8.4.3.1-1+cuda11.6 tensorrt-dev=8.4.3.1-1+cuda11.6 && \
+    tensorrt-libs=8.5.2.2-1+cuda11.8 tensorrt-dev=8.5.2.2-1+cuda11.8 && \
   rm -rf /var/lib/apt/lists/*
 
 # for shown on runtime
