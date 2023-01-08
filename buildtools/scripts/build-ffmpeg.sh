@@ -20,9 +20,16 @@ PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
 
 source ${CURRENT_DIR_PATH}/options.sh
 
-# build type
+# build type, toolchain
 if [[ ${FFMPEG_BUILD_TYPE_INTERNAL} == "Debug" ]]; then
     FFMPEG_DEBUG_PARAMS=(--enable-debug=3 --disable-optimizations --disable-stripping --extra-cflags=-fno-omit-frame-pointer --extra-cflags=-fno-inline)
+fi
+FFMPEG_TOOLCHAIN_PARAMS=
+if [[ ${FFMPEG_TOOLCHAIN_VALGRIND_MEMCHECK} =~ "true" ]]; then
+    FFMPEG_TOOLCHAIN_PARAMS="--toolchain=valgrind-memcheck"
+fi
+if [[ ${FFMPEG_TOOLCHAIN_COVERAGE} =~ "true" ]]; then
+    FFMPEG_TOOLCHAIN_PARAMS="--toolchain=gcov"
 fi
 
 # whether enable nvidia gpu
@@ -70,7 +77,7 @@ set -x
   --enable-libfreetype --enable-libfontconfig --enable-libfribidi --enable-libass \
   --enable-sdl \
   --enable-libsrt \
-  ${FFMPEG_STATIC_SHARED_PARAMS} ${FFMPEG_PROGRAMS_STATIC_LINKING} \
+  ${FFMPEG_STATIC_SHARED_PARAMS} ${FFMPEG_PROGRAMS_STATIC_LINKING} ${FFMPEG_TOOLCHAIN_PARAMS} \
   "${FFMPEG_WITH_SSL_PARAMS[@]}" "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 make -i clean
 ${BEAR_COMMAND} make ${BEAR_MAKE_PARALLEL} build

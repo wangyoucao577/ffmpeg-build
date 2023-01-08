@@ -2,7 +2,7 @@
 
 # Install basic packages
 apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  build-essential pkg-config automake libtool python3-pip gperf \
+  build-essential pkg-config automake libtool python3-pip gperf lcov \
   yasm nasm libssl-dev \
   vim curl wget rsync git jq zip unzip tree stow \
   lsb-release software-properties-common gnupg2 autoconf \
@@ -42,3 +42,14 @@ wget --progress=dot:mega --no-check-certificate https://go.dev/dl/$(curl https:/
   stow -v -t ../bin bin && \
   cd ~ && \
   go version
+
+# install valgrind
+wget --progress=dot:mega --no-check-certificate https://sourceware.org/pub/valgrind/valgrind-3.20.0.tar.bz2 -O valgrind-3.20.0.tar.bz2 && \
+  tar -xjf valgrind-3.20.0.tar.bz2 && \
+  cd valgrind-3.20.0 && \
+  ./configure --enable-only64bit && \
+  make -j $(nproc) && make install && \
+  cd ../ && \
+  which valgrind && \
+  /usr/local/bin/valgrind --version && \
+  rm -rf ./valgrind*
