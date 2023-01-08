@@ -58,16 +58,16 @@ jobs:
           export FFMPEG_BIN_PATH=.
           ../tests/acceptance-test.sh
 
+      # use gcvor instead of lcov https://trac.ffmpeg.org/wiki/FATE/TestingCoverage
       - name: Generate coverage report
         run: |
           cd ffmpeg
-          make lcov
-          ls -lh lcov/
+          gcovr -v --exclude '/usr/.*' --html index.html 
 
       - uses: actions/upload-artifact@v3
         with:
           name: ffmpeg-coverage
-          path: ffmpeg/lcov/
+          path: ffmpeg/index.html
 
       - uses: actions/upload-artifact@v3
         if: failure()
