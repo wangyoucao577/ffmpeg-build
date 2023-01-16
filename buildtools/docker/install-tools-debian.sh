@@ -17,6 +17,10 @@ pip3 install meson && \
 pip3 install conan && \
   conan --version
 
+# install gcovr
+pip3 install gcovr && \
+  gcovr --version
+
 # install cmake
 wget --progress=dot:mega https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1-linux-x86_64.tar.gz && \
   tar -zxf cmake-3.23.1-linux-x86_64.tar.gz && \
