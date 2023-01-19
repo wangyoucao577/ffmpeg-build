@@ -12,8 +12,7 @@ elif [[ "$OSTYPE" == msys* ]]; then
     FFMPEG_STATIC_SHARED_PARAMS="--disable-static --enable-shared"
     MSYS_BUILD_EXTRA_LDFLAGS=(-fstack-protector)  # to avoid error when link opus
 elif [[ "$OSTYPE" == "linux"* ]]; then
-    # only want to static linking programs on linux (could be work on msys2(windows) either, but don't want to)
-    FFMPEG_PROGRAMS_STATIC_LINKING="--extra-ldexeflags=-static"
+    :
 fi
 CURRENT_DIR_PATH=$(dirname $(realpath $0))
 PROJECT_ROOT_PATH=${CURRENT_DIR_PATH}/../../
@@ -40,18 +39,12 @@ if [[ ${NVIDIA_GPU_AVAILABLE} == "true" ]]; then
     # 2. `--nvccflags="-gencode arch=compute_75,code=sm_75 -O2"` is required for ffmpeg version before n5.0, 
     #    otherwise `ERROR: failed checking for nvcc.` will occur.
     FFMPEG_WITH_NV_PARAMS=(--enable-cuda-nvcc --enable-nvenc --enable-nvdec --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --nvccflags="-gencode arch=compute_75,code=sm_75 -O2")
-
-    # should be disabled to link cuda libraries dynamically
-    FFMPEG_PROGRAMS_STATIC_LINKING=
 fi
 
 if [[ ${PREFERRED_SSL} == "mbedtls" ]]; then
     FFMPEG_WITH_SSL_PARAMS=(--enable-mbedtls --extra-ldflags=-L${PROJECT_ROOT_PATH}/build/lib)
 else
     FFMPEG_WITH_SSL_PARAMS=(--enable-openssl)
-
-    # should be disabled to link openssl/boringssl libraries dynamically
-    FFMPEG_PROGRAMS_STATIC_LINKING=
 fi
 
 # enter build folder
@@ -60,12 +53,16 @@ cd ${PROJECT_ROOT_PATH}/ffmpeg
 # build ffmpeg, extra params will be appended at the end
 # 1. ready but NOT add, too old and don't like to use: --enable-librtmp
 # 2. static linking executable: --extra-ldexeflags="-static"
-#    by this option, `ldd build/bin/ffmpeg` will shows `not a dynamic executable`
-#    after add this option, openssl need to be disabled since it requires `-ldl` for `dlopen` functions.
+#    By this option, `ldd build/bin/ffmpeg` will shows `not a dynamic executable`
+#    After add this option, openssl need to be disabled since it requires `-ldl` for `dlopen` functions.
 #    `--enable-mbedtls` could be an anlternative in such case.    
-#    other options that requires dynamic linking are also need to be removed, such as `--enable-libnpp` and so on. 
-#    one more thing is that it may only useful for linux, because macosx doesn't provide static linkable libc, 
-#    cygwin/msys2/mingw env also requies to link their DLL.    
+#    Other options that requires dynamic linking are also need to be removed, such as `--enable-libnpp` and so on. 
+#    It's workable on Linux and Windows(cygwin/msys2/mingw), but not macosx due to no static linkable libc provided.
+#    However, static linking glibc is discouraged, see more in 
+#       https://stackoverflow.com/questions/57476533/why-is-statically-linking-glibc-discouraged
+#       https://akkadia.org/drepper/no_static_linking.html
+#    In my tests it prompts `warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking`, 
+#       also breaks ffmpeg's valgrind memcheck functions. So finally I decided to disable it for all platforms.
 set -x
 ./configure --prefix=${PROJECT_ROOT_PATH}/build \
   --enable-gpl --enable-version3 --enable-nonfree \
@@ -77,7 +74,7 @@ set -x
   --enable-libfreetype --enable-libfontconfig --enable-libfribidi --enable-libass \
   --enable-sdl \
   --enable-libsrt \
-  ${FFMPEG_STATIC_SHARED_PARAMS} ${FFMPEG_PROGRAMS_STATIC_LINKING} ${FFMPEG_TOOLCHAIN_PARAMS} \
+  ${FFMPEG_STATIC_SHARED_PARAMS} ${FFMPEG_TOOLCHAIN_PARAMS} \
   "${FFMPEG_WITH_SSL_PARAMS[@]}" "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 make -i clean
 ${BEAR_COMMAND} make ${BEAR_MAKE_PARALLEL} build
