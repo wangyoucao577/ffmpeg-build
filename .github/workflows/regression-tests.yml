@@ -79,6 +79,7 @@ jobs:
           path: ffmpeg/ffbuild/config.log
 
   ffmpeg-valgrind-memcheck:
+    timeout-minutes: 720
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
