@@ -78,25 +78,26 @@ jobs:
           name: ffbuild-logs-coverage
           path: ffmpeg/ffbuild/config.log
 
-  # ffmpeg-valgrind-memcheck:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: '0'
-  #         submodules: 'true'
+#   ffmpeg-valgrind-memcheck:
+#     timeout-minutes: 720
+#     runs-on: ubuntu-latest
+#     container:
+#       image: ghcr.io/wangyoucao577/ffmpeg-build/linux-debian11
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: '0'
+#           submodules: 'true'
           
-  #     - name: Build with gcov and run ffmpeg fate suites
-  #       run: |
-  #         export FFMPEG_BUILD_TYPE=Debug
-  #         export FFMPEG_ENABLE_FATE_TESTS=true
-  #         export FFMPEG_TOOLCHAIN_VALGRIND_MEMCHECK=true
-  #         buildtools/scripts/build.sh
+#       - name: Build with gcov and run ffmpeg fate suites
+#         run: |
+#           export FFMPEG_BUILD_TYPE=Debug
+#           export FFMPEG_ENABLE_FATE_TESTS=true
+#           export FFMPEG_TOOLCHAIN_VALGRIND_MEMCHECK=true
+#           buildtools/scripts/build.sh
 
-  #     - uses: actions/upload-artifact@v3
-  #       if: failure()
-  #       with:
-  #         name: ffbuild-logs-valgrind-memcheck
-  #         path: ffmpeg/ffbuild/config.log
+#       - uses: actions/upload-artifact@v3
+#         if: failure()
+#         with:
+#           name: ffbuild-logs-valgrind-memcheck
+#           path: ffmpeg/ffbuild/config.log

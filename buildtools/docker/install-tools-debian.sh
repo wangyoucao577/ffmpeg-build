@@ -2,7 +2,7 @@
 
 # Install basic packages
 apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  build-essential pkg-config automake libtool python3-pip gperf lcov \
+  build-essential pkg-config automake libtool python3-pip gperf lcov libc6-dbg \
   yasm nasm libssl-dev \
   vim curl wget rsync git jq zip unzip tree stow \
   lsb-release software-properties-common gnupg2 autoconf \
