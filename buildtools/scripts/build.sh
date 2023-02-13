@@ -38,6 +38,7 @@ ${CURRENT_DIR_PATH}/build-soxr.sh
 ${CURRENT_DIR_PATH}/build-vmaf.sh
 ${CURRENT_DIR_PATH}/build-sdl.sh
 ${CURRENT_DIR_PATH}/build-srt.sh
+${CURRENT_DIR_PATH}/build-zimg.sh
 ${CURRENT_DIR_PATH}/build-rtmpdump.sh
 ${CURRENT_DIR_PATH}/build-ffmpeg.sh "$@"
 

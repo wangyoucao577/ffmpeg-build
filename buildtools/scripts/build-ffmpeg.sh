@@ -74,6 +74,7 @@ set -x
   --enable-libfreetype --enable-libfontconfig --enable-libfribidi --enable-libass \
   --enable-sdl \
   --enable-libsrt \
+  --enable-libzimg \
   ${FFMPEG_STATIC_SHARED_PARAMS} ${FFMPEG_TOOLCHAIN_PARAMS} \
   "${FFMPEG_WITH_SSL_PARAMS[@]}" "${FFMPEG_WITH_NV_PARAMS[@]}" "${FFMPEG_DEBUG_PARAMS[@]}" "$@"
 make -i clean
