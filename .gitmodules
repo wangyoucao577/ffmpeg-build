@@ -52,3 +52,6 @@
 [submodule "third-party/dav1d"]
 	path = third-party/dav1d
 	url = https://github.com/videolan/dav1d.git
+[submodule "third-party/zimg"]
+	path = third-party/zimg
+	url = https://github.com/sekrit-twc/zimg.git
