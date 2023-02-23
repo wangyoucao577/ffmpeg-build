@@ -31,3 +31,4 @@ ${FFMPEG_BIN_PATH}/ffmpeg -y -i ${TESTS_PATH}/out_hevc.flv -c copy ${TESTS_PATH}
 ${FFMPEG_BIN_PATH}/ffmpeg -y -i ${TESTS_PATH}/small_bunny_1080p_60fps.mp4 -vf drawtext="text='hello world':fontfile=${TESTS_PATH}/FreeSans.ttf" -f null -
 ${FFMPEG_BIN_PATH}/ffmpeg -y -i ${TESTS_PATH}/small_bunny_1080p_60fps.mp4 -vf subtitles=${TESTS_PATH}/sintel_en.srt -f null -
 ${FFMPEG_BIN_PATH}/ffmpeg -y -i ${TESTS_PATH}/small_bunny_1080p_60fps.mp4 -vn -af aresample=resampler=soxr -ar 8000 ${TESTS_PATH}/out.aac
+${FFMPEG_BIN_PATH}/ffmpeg -y -i ${TESTS_PATH}/small_bunny_1080p_60fps.mp4 -an -vf zscale=w=-1:h=720 -f null -
