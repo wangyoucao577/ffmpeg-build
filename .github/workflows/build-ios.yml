@@ -31,6 +31,8 @@ jobs:
       # setup build tools: ninja, conan, yasm
       - uses: seanmiddleditch/gha-setup-ninja@master
       - uses: turtlebrowser/get-conan@main
+        with:
+          version: 1.59.0
       - name: Install and check tools
         run: |
           brew install tree bear automake  
