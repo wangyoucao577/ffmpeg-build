@@ -10,5 +10,5 @@ compiler.version=13.0
 compiler.libcxx=libc++
 build_type=Release
 [options]
-[tool_requires]
+[build_requires]
 [env]
