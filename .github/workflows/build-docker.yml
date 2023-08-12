@@ -17,7 +17,7 @@ jobs:
   build:
     strategy:
       matrix:
-        image_name: [linux-ubuntu2204, linux-debian11, linux-debian10, linux-debian9, linux-android-sdk, linux-cuda]
+        image_name: [linux-ubuntu2204, linux-debian11, linux-debian10, linux-android-sdk, linux-cuda]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
