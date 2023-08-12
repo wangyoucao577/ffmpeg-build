@@ -38,7 +38,7 @@ wget --progress=dot:mega https://github.com/ninja-build/ninja/releases/download/
   ninja --version
 
 # install go
-wget --progress=dot:mega --no-check-certificate https://go.dev/dl/$(curl https://go.dev/VERSION?m=text).linux-amd64.tar.gz -O go.linux-amd64.tar.gz && \
+wget --progress=dot:mega --no-check-certificate https://go.dev/dl/$(curl https://go.dev/VERSION?m=text | head -n1).linux-amd64.tar.gz -O go.linux-amd64.tar.gz && \
   tar -zxf go.linux-amd64.tar.gz && \
   mv go /usr/local/ && \
   rm -f go.linux-amd64.tar.gz && \
