@@ -14,7 +14,7 @@ pip3 install meson && \
   meson --version
 
 # install conan
-pip3 install conan && \
+pip3 install conan==1.60 && \
   conan --version
 
 # install gcovr
