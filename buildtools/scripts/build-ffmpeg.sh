@@ -9,7 +9,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     }
 elif [[ "$OSTYPE" == msys* ]]; then
     # build shared on windows
-    FFMPEG_STATIC_SHARED_PARAMS="--disable-static --enable-shared"
+    # workaround: disable inline asm to avoid Error: operand type mismatch for `shr'
+    FFMPEG_STATIC_SHARED_PARAMS="--disable-static --enable-shared --disable-inline-asm"
     MSYS_BUILD_EXTRA_LDFLAGS=(-fstack-protector)  # to avoid error when link opus
 elif [[ "$OSTYPE" == "linux"* ]]; then
     :
