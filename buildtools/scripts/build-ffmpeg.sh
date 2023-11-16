@@ -72,7 +72,7 @@ set -x
   --enable-libvmaf \
   --enable-libx264 --enable-libx265 --enable-libsvtav1 --enable-libaom --enable-libdav1d \
   --enable-libopus --enable-libfdk-aac --enable-libsoxr \
-  --enable-libfreetype --enable-libfontconfig --enable-libfribidi --enable-libass \
+  --enable-libfreetype --enable-libharfbuzz --enable-libfontconfig --enable-libfribidi --enable-libass \
   --enable-sdl \
   --enable-libsrt \
   --enable-libzimg \
