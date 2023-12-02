@@ -12,7 +12,7 @@
 	url = https://code.videolan.org/videolan/x264.git
 [submodule "x265"]
 	path = third-party/x265
-	url = https://github.com/videolan/x265.git
+	url = https://bitbucket.org/multicoreware/x265_git.git
 [submodule "vmaf"]
 	path = third-party/vmaf
 	url = https://github.com/Netflix/vmaf.git
