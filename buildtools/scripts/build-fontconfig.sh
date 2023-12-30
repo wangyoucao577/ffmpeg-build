@@ -21,6 +21,13 @@ rm -rf fontconfig-2.12.6
 tar -zxf fontconfig-2.12.6.tar.gz
 cd fontconfig-2.12.6
 ./configure --prefix=${PROJECT_ROOT_PATH}/build --enable-static --disable-shared --enable-libxml2 --disable-docs
+
+if [[ "$OSTYPE" == "darwin"* && $(uname -m) == "arm64" ]]; then
+    # disable fc-cache test to avoid segmentation fault on macosx arm64
+    sed -i'' -e "s/RUN_FC_CACHE_TEST = test/\#RUN_FC_CACHE_TEST = test/g" Makefile
+    sed -i'' -e "s/\#RUN_FC_CACHE_TEST = false/RUN_FC_CACHE_TEST = false/g" Makefile
+fi 
+
 make ${MAKE_PARALLEL} && make install
 
 # package sample fonts with bin
