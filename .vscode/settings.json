@@ -1,5 +1,5 @@
 {
-    "C_Cpp.intelliSenseEngine": "Disabled", // Use clangd's instead 
+    "C_Cpp.intelliSenseEngine": "disabled", // Use clangd's instead 
     "clangd.arguments": [
         "--compile-commands-dir=ffmpeg", // where to find `compile_commands.json`
         "--header-insertion=never", // avoid error header insertion 
